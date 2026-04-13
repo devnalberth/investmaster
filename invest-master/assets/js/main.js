@@ -1366,6 +1366,29 @@
           },
         });
       });
+
+      /* Carrossel de logos — parceiros (todas as imagens em assets/images/parceiros/) */
+      $(document).ready(function () {
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        document.querySelectorAll(".im-parceiros-carousel").forEach(function (el) {
+          if (el.classList.contains("swiper-initialized")) {
+            return;
+          }
+          new Swiper(el, {
+            slidesPerView: "auto",
+            spaceBetween: 28,
+            loop: true,
+            speed: 900,
+            loopAdditionalSlides: 6,
+            autoplay: reduceMotion ? false : {
+              delay: 1400,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            },
+            grabCursor: true,
+          });
+        });
+      });
     },
     odoMeter: function () {
       $(document).ready(function () {

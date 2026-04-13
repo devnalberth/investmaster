@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contempladas — Invest Master. Página em construção; em breve conteúdo sobre contemplações e apoio a parceiros Embracon.">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/fav.png">
+    <title>Contempladas — Invest Master</title>
+    <link rel="stylesheet preload" href="assets/css/plugins/fontawesome.css" as="style">
+    <link rel="stylesheet preload" href="assets/css/plugins/swiper.css" as="style">
+    <link rel="stylesheet preload" href="assets/css/plugins/metismenu.css" as="style">
+    <link rel="stylesheet preload" href="assets/css/plugins/magnifying-popup.css" as="style">
+    <link rel="stylesheet preload" href="assets/css/plugins/odometer.css" as="style">
+    <link rel="stylesheet preload" href="assets/css/vendor/bootstrap.min.css" as="style">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet preload" as="style">
+    <link rel="preload" as="image" href="assets/images/banner/21.webp">
+    <link rel="stylesheet preload" href="assets/css/style.css" as="style">
+    <style>
+        /* Skip link de acessibilidade */
+        .im-skip-link {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0);
+            white-space: nowrap; border: 0;
+        }
+        .im-skip-link:focus {
+            position: fixed; left: .75rem; top: .75rem; z-index: 10000;
+            width: auto; height: auto; margin: 0;
+            padding: .5rem 1rem; clip: auto; overflow: visible;
+            white-space: normal; background: #fff;
+            border: 1px solid rgba(32,40,45,.2);
+            box-shadow: 0 4px 20px rgba(15,23,42,.12);
+            font-weight: 600;
+        }
+
+        /* Badge "Em breve" animado */
+        .im-badge-wip {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: rgba(130,180,64,.12);
+            border: 1px solid rgba(130,180,64,.35);
+            color: #82b440;
+            font-family: var(--font-secondary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .45rem 1.2rem;
+            border-radius: 2rem;
+            margin-bottom: 2.4rem;
+        }
+        .im-badge-wip::before {
+            content: '';
+            width: .6rem; height: .6rem;
+            border-radius: 50%;
+            background: #82b440;
+            animation: im-pulse 1.6s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+        @keyframes im-pulse {
+            0%,100% { opacity: 1; transform: scale(1); }
+            50%      { opacity: .4; transform: scale(.7); }
+        }
+
+        /* Linha de progresso estilizada */
+        .im-progress-bar-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+            margin-top: 3.2rem;
+        }
+        .im-progress-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .im-progress-bar-item .im-bar-label {
+            font-family: var(--font-secondary);
+            font-size: 1.3rem;
+            color: rgba(255,255,255,.7);
+            min-width: 14rem;
+            text-align: right;
+        }
+        .im-progress-bar-item .im-bar-track {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,.12);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .im-progress-bar-item .im-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: #82b440;
+            transition: width 1.4s cubic-bezier(.4,0,.2,1);
+        }
+        .im-progress-bar-item .im-bar-pct {
+            font-family: var(--font-secondary);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: rgba(255,255,255,.9);
+            min-width: 3.4rem;
+        }
+
+        /* Faixa hero breadcrumb: remove pre‑titulo duplicado */
+        .rts-breadcrumb-area .title-area-left.center .pre {
+            display: block;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .im-badge-wip::before { animation: none; }
+            .im-bar-fill { transition: none; }
+        }
+    </style>
+</head>
+
+<body class="im-contempladas-page">
+
+    <!-- header trasnparent area start -->
+    <header class="header-transparent header-seven header--sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="header-transparent-main-wrapper">
+                        <a href="index.html" class="logo">
+                            <img src="assets/images/logo/02.svg" alt="Logo da Invest Master">
+                        </a>
+                        <div class="nav-area">
+                            <ul class="">
+                                <li class="main-nav project-a-after"><a href="index.html">Página Inicial</a></li>
+                                <li class="main-nav project-a-after"><a href="about.html">Quem Somos</a></li>
+                                <li class="main-nav project-a-after"><a href="contempladas.html" aria-current="page">Contempladas</a></li>
+                                <li class="main-nav project-a-after"><a href="contact-2.html">Contato</a></li>
+                            </ul>
+                        </div>
+
+
+                        <div class="loader-wrapper">
+                            <div class="loader">
+                            </div>
+                            <div class="loader-section section-left"></div>
+                            <div class="loader-section section-right"></div>
+                        </div>
+                        <div class="action-area">
+                            <a href="partners.html" class="rts-btn btn-primary btn-white">SEJA UM PARCEIRO</a>
+                            <button id="menu-btn" class="menu menu-btn ml--20 ml_sm--5" aria-label="Abrir menu">
+                                <img class="menu-light" src="assets/images/icons/01.svg" alt="Ícone do menu">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header trasnparent area end -->
+
+    <a class="im-skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+    <div id="conteudo-principal" class="page-wrapper radious-none-button">
+
+        <!-- ═══ HERO BREADCRUMB ═══════════════════════════════════════════ -->
+        <div class="rts-breadcrumb-area" aria-labelledby="titulo-contempladas">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="title-area-left center">
+                            <span class="bg-title">Contempladas</span>
+                            <h1 id="titulo-contempladas" class="title rts-text-anime-style-1">
+                                Cartas contempladas<br> <span translate="no">Embracon</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="shape-area">
+                <img src="assets/images/about/shape/01.png" alt="" class="one" aria-hidden="true">
+                <img src="assets/images/about/shape/02.png" alt="" class="two" aria-hidden="true">
+                <img src="assets/images/about/shape/03.png" alt="" class="three" aria-hidden="true">
+            </div>
+        </div>
+
+        <!-- ═══ FAIXA ESCURA: status + progresso ════════════════════════ -->
+        <div class="working-process-one bg-main rts-section-gap without-clip-radious">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="title-style-one">
+                            <span class="pre">Status da Página</span>
+                            <h2 class="title rts-text-anime-style-1">Conteúdo em desenvolvimento</h2>
+                        </div>
+                        <p class="disc mt--20" style="color:rgba(255,255,255,.75)">
+                            Nossa equipe está preparando uma experiência completa sobre cartas contempladas da <span translate="no">Embracon</span>. Em breve você terá acesso a ofertas, filtros por crédito e canal direto para negociação.
+                        </p>
+
+                        <div class="im-progress-bar-wrap" role="status" aria-label="Progresso do desenvolvimento">
+                            <div class="im-progress-bar-item">
+                                <span class="im-bar-label">Curadoria de cartas</span>
+                                <div class="im-bar-track"><div class="im-bar-fill" style="width:85%"></div></div>
+                                <span class="im-bar-pct">85%</span>
+                            </div>
+                            <div class="im-progress-bar-item">
+                                <span class="im-bar-label">Design das listagens</span>
+                                <div class="im-bar-track"><div class="im-bar-fill" style="width:60%"></div></div>
+                                <span class="im-bar-pct">60%</span>
+                            </div>
+                            <div class="im-progress-bar-item">
+                                <span class="im-bar-label">Sistema de filtros</span>
+                                <div class="im-bar-track"><div class="im-bar-fill" style="width:35%"></div></div>
+                                <span class="im-bar-pct">35%</span>
+                            </div>
+                        </div>
+
+                        <div class="mt--50">
+                            <span class="im-badge-wip">Em breve</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="working-process-main-wrapper mt--0">
+                            <div class="single-working-process-one" data-animation="fadeInUp" data-delay="0.1" data-duration="1.2">
+                                <div class="left">
+                                    <div class="icon">
+                                        <img src="assets/images/process/icon/01.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="inner-content">
+                                    <div class="number-main"><span class="number">01</span></div>
+                                    <h5 class="title">Cartas disponíveis</h5>
+                                    <p class="disc">
+                                        Listagem atualizada de cartas contempladas com crédito liberado para imóvel, veículo e serviços.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="single-working-process-one" data-animation="fadeInUp" data-delay="0.25" data-duration="1.2">
+                                <div class="left">
+                                    <div class="icon">
+                                        <img src="assets/images/process/icon/02.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="inner-content">
+                                    <div class="number-main"><span class="number">02</span></div>
+                                    <h5 class="title">Simulação de lance</h5>
+                                    <p class="disc">
+                                        Compare valores, taxas e prazos para calcular a viabilidade antes de negociar.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="single-working-process-one" data-animation="fadeInUp" data-delay="0.4" data-duration="1.2">
+                                <div class="left">
+                                    <div class="icon">
+                                        <img src="assets/images/process/icon/03.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="inner-content">
+                                    <div class="number-main"><span class="number">03</span></div>
+                                    <h5 class="title">Canal de negociação</h5>
+                                    <p class="disc">
+                                        Fale diretamente com um especialista da <span translate="no">Invest Master</span> para fechar a contemplada ideal para seu cliente.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ FEATURE ROWS (sticky statement) ════════════════════════ -->
+        <div class="rts-latest-service-area rts-section-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="title-style-one center">
+                            <span class="pre">O que está a caminho</span>
+                            <h2 class="title rts-text-anime-style-1">Recursos em desenvolvimento</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt--50">
+                        <section class="main-wrapper-sticky" aria-label="Recursos planejados">
+                            <div class="sticky-statement">
+                                <div class="left-side">
+                                    <div class="icon">
+                                        <img src="assets/images/service/icons/01.svg" alt="">
+                                    </div>
+                                    <h5 class="title">Catálogo de cartas</h5>
+                                </div>
+                                <div class="right">
+                                    <p class="disc">
+                                        Visualize todas as cartas contempladas disponíveis, filtradas por modalidade (imóvel, veículo ou serviço), faixa de crédito e prazo restante.
+                                    </p>
+                                    <span class="arrow" aria-hidden="true">
+                                        <i class="fa-regular fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="sticky-statement">
+                                <div class="left-side">
+                                    <div class="icon">
+                                        <img src="assets/images/service/icons/02.svg" alt="">
+                                    </div>
+                                    <h5 class="title">Simulador online</h5>
+                                </div>
+                                <div class="right">
+                                    <p class="disc">
+                                        Calcule o valor do lance necessário, o retorno esperado e as condições de transferência em poucos cliques, sem precisar falar com ninguém primeiro.
+                                    </p>
+                                    <span class="arrow" aria-hidden="true">
+                                        <i class="fa-regular fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="sticky-statement">
+                                <div class="left-side">
+                                    <div class="icon">
+                                        <img src="assets/images/service/icons/03.svg" alt="">
+                                    </div>
+                                    <h5 class="title">Atendimento especializado</h5>
+                                </div>
+                                <div class="right">
+                                    <p class="disc">
+                                        Após a simulação, conecte-se em segundos com um especialista <span translate="no">Invest Master</span> para avançar na proposta e garantir a carta para seu cliente.
+                                    </p>
+                                    <span class="arrow" aria-hidden="true">
+                                        <i class="fa-regular fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ CTA — avise-me ══════════════════════════════════════════ -->
+        <div class="rts-cta-area-inner bg_image ptb--100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="cta-inner-content-inner-page">
+                            <div class="left-side-content">
+                                <span>Novidades em primeira mão</span>
+                                <h3 class="title">Seja avisado quando <br> as contempladas estiverem no ar</h3>
+                            </div>
+                            <a href="contact-2.html" class="rts-btn btn-primary btn-white">Fale conosco</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ MARCAS ════════════════════════════════════════════════════ -->
+        <div class="rts-brand-area rts-section-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="brand-list-area-wrapper">
+                            <div class="left-paragraph">
+                                <p>Parceiros que confiam na gente</p>
+                            </div>
+                                                    <div class="right-brand-area-wrapper im-parceiros-swiper-wrap">
+                            <div class="swiper im-parceiros-carousel" aria-label="Logotipos de parceiros">
+                                <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO%20-%20PARCEIROS%20-%20INVESTMAISFOCUS%20360.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO%20-%20PARCEIROS%20-%20INVESTMAISINVEST%20CWB.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO%20-%20PARCEIROS%20-%20INVESTMAISTG%20CONSO%CC%81RCIO.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAIS04.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAIS11.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISACJ-CONSO%CC%81RCIOS.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISALTERNATIVA-SC.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISAMAT-SOLUC%CC%A7O%CC%83ES.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISCRESCON.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISDB.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISDOT-CON.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISDOUGLAS-RIOS-CONSO%CC%81RCIOS.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISE2-INVEST.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISFLEX-CRED.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISFLY-CONSO%CC%81RCIO.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISIMS-SEGUROS.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISLEADER.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISLUME.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISMONTEO-INVESTIMENTOS.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISONE-FINANCIAL.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISPLUSCON.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISRDF-.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISREDE-SUL-CONSORCIOS.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISREVO.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISTG-CONSO%CC%81RCIO.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISTM---MINIMALISTA.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISTM-CONSO%CC%81RCIOS.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISVIVACON.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISVR.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-image">
+                                    <img src="assets/images/parceiros/LOGO---PARCEIROS---INVESTMAISYHARDEN.webp" alt="Logotipo de parceiro" loading="lazy" decoding="async" width="200" height="80">
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /page-wrapper -->
+
+
+    <!-- footer area start -->
+    <div class="footer-8-area-bg bg_image pt--65">
+        <div class="container pb--65">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer-logo-area-left-8">
+                        <a href="index.html" class="logo">
+                            <img src="assets/images/logo/03.svg" alt="Logo da Invest Master">
+                        </a>
+                        <p class="disc">
+                            Referência em apoio técnico, administrativo e estratégico para parceiros <span translate="no">Embracon</span> que querem escalar vendas com previsibilidade.
+                        </p>
+                        <ul class="social-area-wrapper-two">
+                            <li><a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a></li>
+                            <li><a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                            <li><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="offset-lg-1 col-lg-4">
+                    <div class="footer-one-single-wized">
+                        <div class="wized-title">
+                            <h5 class="title">Links rápidos</h5>
+                            <img src="assets/images/footer/under-title.png" alt="">
+                        </div>
+                        <div class="quick-link-inner">
+                            <ul class="links">
+                                <li><a href="index.html"><i class="far fa-arrow-right"></i> Página Inicial</a></li>
+                                <li><a href="about.html"><i class="far fa-arrow-right"></i> Quem Somos</a></li>
+                                <li><a href="contempladas.html"><i class="far fa-arrow-right"></i> Contempladas</a></li>
+                                <li><a href="contact-2.html"><i class="far fa-arrow-right"></i> Contato</a></li>
+                            </ul>
+                            <ul class="links margin-left-70">
+                                <li><a href="partners.html"><i class="far fa-arrow-right"></i> Seja um Parceiro</a></li>
+                                <li><a href="faq.html"><i class="far fa-arrow-right"></i> Dúvidas frequentes</a></li>
+                                <li><a href="privacy-policy.html"><i class="far fa-arrow-right"></i> Política de privacidade</a></li>
+                                <li><a href="terms-of-condition.html"><i class="far fa-arrow-right"></i> Termos de uso</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="offset-lg-1 col-lg-3">
+                    <div class="footer-one-single-wized">
+                        <div class="wized-title">
+                            <h5 class="title">Contato</h5>
+                            <img src="assets/images/footer/under-title.png" alt="">
+                        </div>
+                        <div class="quick-link-inner d-block">
+                            <div class="signle-footer-contact-8">
+                                <div class="icon">
+                                    <i class="fa-solid fa-phone-alt"></i>
+                                </div>
+                                <div class="inner-content">
+                                    <h5 class="title">Telefone</h5>
+                                    <a href="tel:+5511954633703">11 9 54633703</a>
+                                </div>
+                            </div>
+                            <div class="signle-footer-contact-8">
+                                <div class="icon">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div class="inner-content">
+                                    <h5 class="title">Horário</h5>
+                                    <a href="contact-2.html">08:30 às 19:00</a>
+                                </div>
+                            </div>
+                            <div class="signle-footer-contact-8">
+                                <div class="icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div class="inner-content">
+                                    <h5 class="title">Endereço</h5>
+                                    <a href="https://maps.google.com/?q=R.+Padre+Anchieta,+712+-+Mercês,+Curitiba+-+PR,+80430-060">R. Padre Anchieta, 712 - Mercês, Curitiba - PR, 80430-060</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area-main-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright-8-wrapper">
+                            <p><span translate="no">Invest Master</span> © <script>
+                                    document.write(
+                                        new Date().getFullYear()
+                                    )
+                                </script>. Todos os direitos reservados.</p>
+                            <ul>
+                                <li><a href="privacy-policy.html">Política de privacidade</a></li>
+                                <li><a href="terms-of-condition.html">Termos de uso</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer area end -->
+
+    <div id="side-bar" class="side-bar header-two">
+        <button class="close-icon-menu" title="Fechar menu" aria-label="Fechar menu"><i class="far fa-times"></i></button>
+        <!-- inner menu area desktop start -->
+        <div class="rts-sidebar-menu-desktop">
+            <a class="logo-1" href="index.html"><img class="logo" src="assets/images/logo/01.svg" alt="Logo da Invest Master"></a>
+            <div class="body d-none d-xl-block">
+                <p class="disc">
+                    A <span translate="no">Invest Master</span> combina suporte técnico, administrativo e estratégico para ajudar parceiros <span translate="no">Embracon</span> a vender com mais segurança, previsibilidade e escala.
+                </p>
+                <div class="get-in-touch">
+                    <!-- title -->
+                    <div class="h6 title">Entre em contato</div>
+                    <!-- title End -->
+                    <div class="wrapper">
+                        <!-- single -->
+                        <div class="single">
+                            <i class="fas fa-phone-alt"></i>
+                            <a href="tel:+5511954633703">11 9 5463-3703</a>
+                        </div>
+                        <!-- single ENd -->
+                        <!-- single -->
+                        <div class="single">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:contato@investmaster.com.br">contato@investmaster.com.br</a>
+                        </div>
+                        <!-- single ENd -->
+                        <!-- single -->
+                        <div class="single">
+                            <i class="fas fa-globe"></i>
+                            <a href="https://www.investmaster.com.br" translate="no">www.investmaster.com.br</a>
+                        </div>
+                        <!-- single ENd -->
+                        <!-- single -->
+                        <div class="single">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <a href="https://maps.google.com/?q=R.+Padre+Anchieta,+712+-+Mercês,+Curitiba+-+PR,+80430-060">Mercês, Curitiba — PR</a>
+                        </div>
+                        <!-- single ENd -->
+                    </div>
+                    <div class="social-wrapper-two menu">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <!-- <a href="#"><i class="fab fa-linkedin"></i></a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile menu area start -->
+        <div class="mobile-menu d-block d-xl-none">
+            <nav class="nav-main mainmenu-nav mt--30">
+                <ul class="mainmenu metismenu" id="mobile-menu-active">
+                    <li><a href="index.html" class="main">Página Inicial</a></li>
+                    <li><a href="about.html" class="main">Quem Somos</a></li>
+                    <li><a href="contempladas.html" class="main">Contempladas</a></li>
+                    <li><a href="partners.html" class="main">Seja um Parceiro</a></li>
+                    <li><a href="contact-2.html" class="main">Contato</a></li>
+                </ul>
+            </nav>
+
+            <div class="social-wrapper-one">
+                <ul>
+                    <li>
+                        <a href="#" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" aria-label="Twitter">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" aria-label="YouTube">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" aria-label="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- mobile menu area end -->
+    </div>
+    <!-- inner menu area desktop End -->
+
+
+    <!-- offcanvase search -->
+    <div class="search-input-area">
+        <div class="container">
+            <div class="search-input-inner">
+                <div class="input-div">
+                    <input class="search-input autocomplete" type="search" aria-label="Buscar no site" spellcheck="false" placeholder="Busque por palavra-chave ou #…">
+                    <button aria-label="Buscar"><i class="far fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="close" class="search-close-icon"><i class="far fa-times"></i></div>
+    </div>
+    <div id="anywhere-home" class="">
+    </div>
+
+    <!-- rtl btn area start -->
+    <div class="rtl-ltr-switcher-btn">
+        <span class="rtl show">Ver dir. para esq.</span>
+        <span class="ltr">Ver esq. para dir.</span>
+    </div>
+    <!-- rtl btn area end -->
+
+    <!-- progress area start -->
+    <div class="progress-wrap">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+    <!-- progress area end -->
+
+    <script defer src="assets/js/plugins/jquery.js"></script>
+
+    <script defer src="assets/js/plugins/odometer.js"></script>
+    <script defer src="assets/js/plugins/jquery-appear.js"></script>
+
+
+    <script defer src="assets/js/plugins/gsap.js"></script>
+    <script defer src="assets/js/plugins/split-text.js"></script>
+    <script defer src="assets/js/plugins/scroll-trigger.js"></script>
+    <script defer src="assets/js/plugins/smooth-scroll.js"></script>
+    <script defer src="assets/js/plugins/metismenu.js"></script>
+    <script defer src="assets/js/plugins/popup.js"></script>
+
+    <script defer src="assets/js/vendor/bootstrap.min.js"></script>
+    <script defer src="assets/js/plugins/swiper.js"></script>
+    <script defer src="assets/js/plugins/contact.form.js"></script>
+
+    <script defer src="assets/js/main.js"></script>
+</body>
+
+</html>
