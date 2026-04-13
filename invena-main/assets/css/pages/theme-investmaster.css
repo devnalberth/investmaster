@@ -1,0 +1,20 @@
+/* Invest Master — menu: itens mais próximos; respiro entre menu e logo / CTA (home + páginas internas) */
+@media only screen and (min-width: 1200px) {
+  .header-transparent.header-seven .nav-area ul {
+    gap: 14px;
+  }
+  .header-transparent.header-seven .nav-area {
+    margin-left: clamp(40px, 5vw, 104px);
+    margin-right: clamp(40px, 5vw, 104px);
+  }
+  .header-one .main-header .nav-area ul {
+    gap: 14px;
+  }
+  .header-one .main-header .nav-area {
+    margin-left: clamp(32px, 4vw, 88px);
+    margin-right: clamp(96px, 7vw, 168px);
+  }
+  .header-two .nav-area ul {
+    gap: 14px;
+  }
+}
