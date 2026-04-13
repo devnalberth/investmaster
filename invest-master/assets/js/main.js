@@ -1380,6 +1380,16 @@
             loop: true,
             speed: 900,
             loopAdditionalSlides: 6,
+            breakpoints: {
+              0: {
+                slidesPerView: 3,
+                spaceBetween: 10,
+              },
+              576: {
+                slidesPerView: "auto",
+                spaceBetween: 28,
+              },
+            },
             autoplay: reduceMotion ? false : {
               delay: 1400,
               disableOnInteraction: false,

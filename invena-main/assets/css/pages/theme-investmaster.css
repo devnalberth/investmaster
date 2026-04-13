@@ -18,3 +18,39 @@
     gap: 14px;
   }
 }
+
+@media only screen and (max-width: 767px) {
+  /* Parceiros (mobile): título com mesma hierarquia da section Team */
+  .rts-trusted-client .title-area-client-client .client-title {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    line-height: 1.35;
+    font-size: 32px;
+    color: #1c2539;
+    text-transform: none;
+    letter-spacing: 0;
+    max-width: 100%;
+  }
+
+  /* 3 logos por linha para melhor leitura no mobile */
+  .rts-trusted-client .client-three-wrapper {
+    gap: 12px;
+    justify-content: center;
+  }
+  .rts-trusted-client .client-three-wrapper .single {
+    width: calc((100% - 24px) / 3);
+    min-width: 0;
+    height: 72px;
+    border-radius: 12px;
+    padding: 8px;
+  }
+  .rts-trusted-client .client-three-wrapper img {
+    max-width: 92px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .rts-trusted-client .title-area-client-client .client-title {
+    font-size: 26px;
+  }
+}

@@ -11,6 +11,23 @@ body .rts-section-gapBottom:not(.index-seven-area) {
   padding-bottom: 120px;
 }
 
+/* Home section 02 — selo com cantos suaves */
+.im-section-two-title .pre {
+  border-radius: 8px !important;
+}
+
+/* Projeto Invest Master — padronização de botões com o raio do cabeçalho */
+body .rts-btn,
+body button.rts-btn,
+body .rts-btn.btn-primary,
+body .rts-btn.btn-primary.btn-white,
+body .rts-btn.btn-border,
+body button[type="submit"],
+body input[type="submit"],
+body input[type="button"] {
+  border-radius: 100px !important;
+}
+
 /* Newsletter (home) — aplicar nova cor primária no card */
 .rts-cta-area-one .cta-main-area-wrapper-one {
   background-image: none;
@@ -182,6 +199,106 @@ body .rts-section-gapBottom:not(.index-seven-area) {
   }
 }
 
+@media only screen and (max-width: 767px) {
+  /* Hero mobile: conteúdo alinhado à esquerda */
+  .index-seven-area.with-video .banner-seven-inner-content {
+    text-align: left;
+    padding-left: 10px !important;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .index-seven-area.with-video .banner-seven-inner-content .pre-title {
+    justify-content: flex-start;
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .index-seven-area.with-video .banner-seven-inner-content .title {
+    text-align: left;
+  }
+  .index-seven-area.with-video .banner-seven-inner-content .disc {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .index-seven-area.with-video .banner-seven-inner-content .rts-btn {
+    margin-left: 0 !important;
+    margin-right: 0;
+    display: inline-flex;
+  }
+
+  /* Header mobile: logo e botão menu menores */
+  .header-transparent.header-seven .header-transparent-main-wrapper .logo img {
+    max-height: 44px;
+  }
+  .header-transparent.header-seven .header-transparent-main-wrapper #menu-btn {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .header-transparent.header-seven .header-transparent-main-wrapper #menu-btn img {
+    width: 18px;
+    height: auto;
+  }
+
+  /* Section 02 (home): reduzir gap entre imagens e conteúdo no mobile */
+  .rts-about-area-6 .col-lg-5.pl--30.mt_md--100.mt_sm--100 {
+    margin-top: 28px !important;
+    padding-left: 12px !important;
+    padding-right: 12px;
+  }
+
+  .rts-about-area-6 .about-6-inner-content-content {
+    text-align: center;
+  }
+
+  .rts-about-area-6 .about-6-inner-content-content .title-style-one.left {
+    text-align: center;
+  }
+
+  .rts-about-area-6 .about-6-inner-content-content .title-style-one.left .title,
+  .rts-about-area-6 .about-6-inner-content-content .title-style-one.left .title .split-line {
+    text-align: center !important;
+    justify-content: center;
+  }
+
+  .rts-about-area-6 .about-6-inner-content-content .title-style-one.left .pre {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .rts-about-area-6 .about-6-inner-content-content .rts-btn {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-flex;
+  }
+
+  /* FAQ mobile: corrigir quebra de palavras e alinhamento do ícone */
+  .investmaster-faq-home .faq-wrapper-inner-page .accordion-item .accordion-header button {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding-right: 44px !important;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-wrap: auto;
+    line-height: 1.4;
+  }
+
+  .investmaster-faq-home .faq-wrapper-inner-page .accordion-item .accordion-header button::after {
+    position: absolute;
+    right: 16px;
+    top: 28px;
+    margin: 0;
+  }
+}
+
 /* ─── Carrossel de logos de parceiros (Swiper) ─────────────────────────── */
 .brand-list-area-wrapper .right-brand-area-wrapper.im-parceiros-swiper-wrap {
   flex: 1;
@@ -262,6 +379,23 @@ body .rts-section-gapBottom:not(.index-seven-area) {
   }
 }
 
+/* Parceiros (mobile): título com mesma escala da section Team */
+@media only screen and (max-width: 767px) {
+  .rts-trusted-client:has(.im-parceiros-client-track) p.client-title.im-parceiros-title-text {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.35;
+    color: #1c2539;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .rts-trusted-client:has(.im-parceiros-client-track) p.client-title.im-parceiros-title-text {
+    font-size: 26px;
+  }
+}
+
 .im-parceiros-carousel {
   width: 100%;
   overflow: hidden;
@@ -329,12 +463,12 @@ body .rts-section-gapBottom:not(.index-seven-area) {
 @media only screen and (max-width: 575px) {
   .client-three-wrapper.im-parceiros-client-track .swiper-slide img,
   .im-parceiros-carousel .swiper-slide img {
-    max-width: 200px;
-    max-height: 56px;
+    max-width: 132px;
+    max-height: 64px;
   }
 
   .client-three-wrapper.im-parceiros-client-track .swiper-slide .single {
-    padding: 8px 14px;
+    padding: 10px 6px;
   }
 }
 
@@ -384,6 +518,12 @@ body .rts-section-gapBottom:not(.index-seven-area) {
   text-decoration: none;
   border-bottom: 1px solid rgba(28, 37, 57, 0.12);
   transition: color var(--transition, 0.3s), border-color var(--transition, 0.3s);
+  display: inline-block;
+}
+
+/* O tema base oculta <br> abaixo de 1200px; aqui precisamos manter a quebra do endereço */
+.im-footer-address .im-footer-address-line a br {
+  display: inline !important;
 }
 
 .im-footer-address .im-footer-address-line a:hover {
@@ -447,4 +587,96 @@ body .rts-section-gapBottom:not(.index-seven-area) {
 .im-footer-address .im-footer-map-link__ic {
   font-size: 0.95em;
   opacity: 0.85;
+}
+
+@media only screen and (max-width: 767px) {
+  /* Rodapé mobile: centralizar todas as informações */
+  .rts-footer-area.footer-two .footer-two-single-wized,
+  .rts-footer-area.footer-two .footer-two-single-wized.left,
+  .rts-footer-area.footer-two .footer-two-single-wized.two,
+  .rts-footer-area.footer-two .footer-two-single-wized.right {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .rts-footer-area.footer-two .footer-two-single-wized .wized-title-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rts-footer-area.footer-two .footer-two-single-wized .wized-2-body ul li a {
+    justify-content: center;
+  }
+
+  .rts-footer-area.footer-two .footer-two-single-wized .contact-info-1 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .rts-footer-area.footer-two .footer-two-single-wized .contact-info-1 .disc {
+    margin-left: 0;
+    align-items: center;
+  }
+
+  .rts-footer-area.footer-two .im-footer-address .im-footer-address-line {
+    text-align: center;
+  }
+
+  .rts-footer-area.footer-two .im-footer-address .im-footer-address-line a {
+    white-space: normal;
+  }
+
+  .rts-footer-area.footer-two .im-footer-address .im-footer-map-link {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .rts-copy-right-1 .copyright-h-2-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .rts-copy-right-1 .copyright-h-2-wrapper .right {
+    width: 100%;
+    text-align: center;
+  }
+
+  .rts-footer-area.footer-two .footer-two-single-wized.left .rts-btn {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-flex;
+  }
+
+  /* Depoimentos mobile: remover CTA lateral e centralizar conteúdo */
+  .rts-client-review-two .title-style-three-between {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .rts-client-review-two .title-style-three-between .title-style-three.left {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .rts-client-review-two .title-style-three-between .title-style-three.left .title,
+  .rts-client-review-two .title-style-three-between .title-style-three.left .pre {
+    text-align: center;
+  }
+
+  .rts-client-review-two .title-style-three-between .button-area {
+    display: none !important;
+  }
+
+  .rts-client-review-two .mySwiperh2_clients {
+    text-align: center;
+  }
 }
