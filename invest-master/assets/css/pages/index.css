@@ -100,7 +100,9 @@
 .banner-seven-inner-content .pre-title {
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: 16px;
+  line-height: 1.45;
+  max-width: min(92vw, 680px);
   color: #FFFFFF;
 }
 @media only screen and (max-width: 575px) {
@@ -241,7 +243,7 @@
   left: 60px;
   display: flex;
   align-items: center;
-  gap: 60px;
+  gap: 14px;
   z-index: 10;
 }
 @media only screen and (max-width: 575px) {
@@ -255,17 +257,12 @@
   }
 }
 .banner-seven-swiper-wrapper .email-area-left::after {
-  position: absolute;
-  content: "";
-  left: 12px;
-  bottom: 148px;
-  width: 1px;
-  height: 40px;
-  background: #fff;
+  content: none;
 }
 .banner-seven-swiper-wrapper .email-area-left a {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
+  line-height: 1.2;
 }
 .banner-seven-swiper-wrapper .email-area-left i {
   transform: rotate(90deg);
@@ -329,6 +326,9 @@
 }
 .radious-none-button .rts-btn {
   border-radius: 0;
+}
+.radious-none-button .rts-btn.im-hero-cta {
+  border-radius: 100px;
 }
 .radious-none-button .title-style-one .pre {
   border-radius: 0;

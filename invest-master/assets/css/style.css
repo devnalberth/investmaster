@@ -47,7 +47,7 @@
 
 /* Default  */
 :root {
-  --color-primary: #20282D;
+  --color-primary: #00346e;
   --color-secondary: #1F1F25;
   --color-blue: #0b4df5;
   --color-sky: #82b440;
@@ -5371,7 +5371,7 @@ Copyright (c) 2015 Daniel Eden
 
 /* header  */
 .header-top-area-wrapper {
-  background: #20282D;
+  background: #00346e;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .header-top-area-wrapper {
@@ -6141,7 +6141,7 @@ Copyright (c) 2015 Daniel Eden
   z-index: 999;
   width: 100%;
   box-shadow: 0px 7px 18px rgba(24, 16, 16, 0.0509803922);
-  background: #20282d;
+  background: #00346e;
 }
 
 .header-transparent-main-wrapper {
@@ -7161,7 +7161,7 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
   border-bottom: 1px solid #f3f3f3;
   cursor: pointer;
   font-weight: 600;
-  color: #20282d;
+  color: #00346e;
 }
 
 li.has-dropdown {
