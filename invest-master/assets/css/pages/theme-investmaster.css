@@ -27,6 +27,27 @@ body .rts-section-gapBottom:not(.index-seven-area) {
   }
 }
 
+/* Home — formulário de agendamento sem foto de fundo (o tema define bg em .appoinment-area-seven) */
+.appoinment-area-seven.im-appointment-plain {
+  background-image: none;
+  background-attachment: scroll;
+  background-color: #f5f6f7;
+}
+
+.appoinment-area-seven.im-appointment-plain .appoinment-main-wrapper-7 {
+  background: #ffffff;
+  box-shadow: 0 12px 40px rgba(28, 37, 57, 0.08);
+}
+
+.appoinment-area-seven.im-appointment-plain .appoinment-main-wrapper-7 span {
+  color: #5d666f;
+  border-color: rgba(32, 40, 45, 0.12);
+}
+
+.appoinment-area-seven.im-appointment-plain .appoinment-main-wrapper-7 .title {
+  color: #1c2539;
+}
+
 /* Invest Master — menu: itens mais próximos; respiro entre menu e logo / CTA (home + páginas internas) */
 @media only screen and (min-width: 1200px) {
   .header-transparent.header-seven .nav-area ul {

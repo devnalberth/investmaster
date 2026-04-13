@@ -1189,20 +1189,22 @@
         });
       });
       $(document).ready(function () {
-        var swiper = new Swiper(".mySwiper-testimonisl-8", {
-          slidesPerView: 1,
-          spaceBetween: 0,
-          slidesPerGroup: 1,
-          loop: true,
-          loopFillGroupWithBlank: true,
-          // pagination: {
-          //   el: ".swiper-pagination",
-          // },
-          // autoplay: {
-          //   delay: 3000,
-          // },
-          speed: 1000,
-        });
+        if (document.querySelector(".mySwiper-testimonisl-8")) {
+          var swiper = new Swiper(".mySwiper-testimonisl-8", {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            slidesPerGroup: 1,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            // pagination: {
+            //   el: ".mySwiper-testimonisl-8 .swiper-pagination",
+            // },
+            // autoplay: {
+            //   delay: 3000,
+            // },
+            speed: 1000,
+          });
+        }
       });
       $(document).ready(function () {
         var swiper = new Swiper(".mySwiper-full-screen-wrapper", {
@@ -1246,31 +1248,33 @@
         });
       });
       $(document).ready(function () {
-        var swiper = new Swiper(".mySwiper-testimonials-dmeo-2", {
-          slidesPerView: 1,
-          spaceBetween: 0,
-          slidesPerGroup: 1,
-          loop: true,
-          loopFillGroupWithBlank: true,
-          pagination: {
-            el: '.swiper-pagination-fraction',
-            type: 'fraction',
-            formatFractionCurrent: function (number) {
-              return '0' + number;
+        if (document.querySelector(".mySwiper-testimonials-dmeo-2")) {
+          var swiper = new Swiper(".mySwiper-testimonials-dmeo-2", {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            slidesPerGroup: 1,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            pagination: {
+              el: '.mySwiper-testimonials-dmeo-2 .swiper-pagination-fraction',
+              type: 'fraction',
+              formatFractionCurrent: function (number) {
+                return '0' + number;
+              },
+              formatFractionTotal: function (number) {
+                return '0' + number;
+              }
             },
-            formatFractionTotal: function (number) {
-              return '0' + number;
-            }
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
-          // autoplay: {
-          //   delay: 3000,
-          // },
-          speed: 1000,
-        });
+            navigation: {
+              nextEl: '.mySwiper-testimonials-dmeo-2 .swiper-button-next',
+              prevEl: '.mySwiper-testimonials-dmeo-2 .swiper-button-prev',
+            },
+            // autoplay: {
+            //   delay: 3000,
+            // },
+            speed: 1000,
+          });
+        }
       });
 
       $(document).ready(function () {
