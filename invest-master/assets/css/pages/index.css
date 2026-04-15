@@ -364,6 +364,19 @@
   min-height: 100%;
   height: 100%;
 }
+.im-principais-gargalos .single-service-style-three .inner .icon {
+  width: auto;
+  height: auto;
+  background: transparent;
+  clip-path: none;
+  margin-bottom: 20px;
+}
+.im-principais-gargalos .single-service-style-three .inner .icon img {
+  width: 30px;
+  height: 30px;
+  display: block;
+  object-fit: contain;
+}
 .im-principais-gargalos .single-service-style-three .inner p.disc {
   flex: 1 1 auto;
   margin-bottom: 0;

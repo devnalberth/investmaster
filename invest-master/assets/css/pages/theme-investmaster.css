@@ -16,6 +16,29 @@ body .rts-section-gapBottom:not(.index-seven-area) {
   border-radius: 8px !important;
 }
 
+/* Home section 02 — manter o frame original ao trocar para imagens horizontais */
+.rts-about-area-6 .about-6-thumbnail-left-wrapper.im-section-two-gallery .single-thumbnail {
+  flex: 1 1 0;
+  aspect-ratio: 582 / 759;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.rts-about-area-6 .about-6-thumbnail-left-wrapper.im-section-two-gallery .im-section-two-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rts-about-area-6 .about-6-thumbnail-left-wrapper.im-section-two-gallery .im-section-two-image--left {
+  object-position: 68% center;
+}
+
+.rts-about-area-6 .about-6-thumbnail-left-wrapper.im-section-two-gallery .im-section-two-image--right {
+  object-position: 54% center;
+}
+
 /* Projeto Invest Master — padronização de botões com o raio do cabeçalho */
 body .rts-btn,
 body button.rts-btn,
@@ -60,6 +83,130 @@ body input[type="button"] {
   color: #ffffff;
   border-color: #ffffff;
 }
+
+/* Páginas internas claras — aplicar o mesmo fundo azul do header sticky da home */
+.header-transparent.im-solid-header {
+  background: var(--color-primary, #00346e);
+  box-shadow: 0px 7px 18px rgba(24, 16, 16, 0.0509803922);
+}
+
+.header-transparent.im-solid-header.header--sticky.sticky {
+  background: var(--color-primary, #00346e);
+}
+
+/* Home team — manter só Instagram e alinhar melhor o botão circular com plus.svg */
+.investmaster-team-section .team-single-one-start .team-image-area a .team-social .main {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.investmaster-team-section .team-single-one-start .team-image-area a .team-social .main i {
+  display: none;
+}
+
+.investmaster-team-section .team-single-one-start .team-image-area a .team-social .main .team-plus-icon {
+  width: 15px;
+  height: 15px;
+  display: block;
+  object-fit: contain;
+}
+
+.investmaster-team-section .team-single-one-start .team-image-area a .team-social:hover .main {
+  background: var(--color-primary);
+}
+
+.investmaster-team-section .team-single-one-start .team-image-area a .team-social:hover .main .team-plus-icon {
+  filter: brightness(0) invert(1);
+}
+
+.investmaster-team-section .team-single-one-start .team-image-area a .team-social .team-social-one {
+  transform: translateY(36px);
+}
+
+.investmaster-team-section .team-single-one-start .team-image-area a .team-social .team-social-one i {
+  margin-bottom: 0;
+}
+
+.investmaster-team-section .team-single-one-start .team-image-area a .team-social:hover .team-social-one {
+  transform: translateY(-112%);
+}
+
+/* Home team — estabilizar o frame das fotos e evitar quebra com arquivos de proporções diferentes */
+.investmaster-team-section .team-single-one-start .team-image-area a {
+  aspect-ratio: 1 / 1.08;
+  background: #f3f4f7;
+}
+
+.investmaster-team-section .team-single-one-start .team-image-area a img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* About — section "Nossa história": limpar elementos flutuantes e dar mais fôlego ao texto */
+.im-about-story-section .left-thumbnail-about-area-two > img {
+  display: block;
+  width: 100%;
+  max-width: 490px;
+  margin: 0 auto;
+}
+
+.im-about-story-section .about-inner-content-two {
+  padding-left: clamp(20px, 3vw, 44px);
+}
+
+.im-about-story-section .about-inner-content-two .about-between-wrapper {
+  display: block;
+  margin-top: 30px;
+}
+
+.im-about-story-section .about-inner-content-two .about-between-wrapper .disc {
+  max-width: 56ch;
+  margin-bottom: 28px;
+}
+
+.im-about-story-section .about-inner-content-two .about-between-wrapper .check-wrapper-area {
+  max-width: 56ch;
+}
+
+.im-about-story-section .about-inner-content-two .about-between-wrapper .single-check + .single-check {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 991px) {
+  .im-about-story-section .about-inner-content-two {
+    padding-left: 0;
+  }
+}
+
+/* About — section "Muito além da corretagem": título com quebra mais equilibrada e CTA sem vídeo */
+.business-goal-area-2.im-about-purpose-section .consultancy-style-one .title-style-two {
+  max-width: 680px;
+}
+
+.business-goal-area-2.im-about-purpose-section .consultancy-style-one .title-style-two .im-balance-title {
+  max-width: 13.5ch;
+  text-wrap: balance;
+}
+
+.business-goal-area-2.im-about-purpose-section .consultancy-style-one .button-wrapper {
+  gap: 0;
+}
+
+@media only screen and (max-width: 1199px) {
+  .business-goal-area-2.im-about-purpose-section .consultancy-style-one .title-style-two .im-balance-title {
+    max-width: 100%;
+  }
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   body .rts-section-gap:not(.index-seven-area),
   body .rts-section-gapTop:not(.index-seven-area),
