@@ -152,7 +152,7 @@ body.im-contempladas-page {
 #conteudo-principal,
 #filtro-contempladas,
 #catalogo-contempladas,
-#fluxo-contempladas {
+#faq {
     scroll-margin-top: 11rem;
 }
 
@@ -197,9 +197,7 @@ body.im-contempladas-page {
 
 .im-process-card,
 .im-selection-panel,
-.im-table-shell,
-.im-data-note,
-.im-footer-card {
+.im-table-shell {
     background: #fff;
     border: 1px solid rgba(21, 32, 48, 0.08);
     box-shadow: var(--im-shadow);
@@ -422,8 +420,7 @@ body.im-contempladas-page {
 
 .im-process-section,
 .im-filter-section,
-.im-catalog-section,
-.im-note-section {
+.im-catalog-section {
     position: relative;
     z-index: 1;
 }
@@ -581,8 +578,7 @@ body.im-contempladas-page {
 }
 
 .im-section-header .title,
-.im-catalog-title,
-.im-note-title {
+.im-catalog-title {
     margin: 0;
     font-family: var(--font-secondary);
     font-size: clamp(3.2rem, 3.1vw, 5.2rem);
@@ -733,8 +729,7 @@ body.im-contempladas-page {
 }
 
 .im-table-controls,
-.im-export-actions,
-.im-table-view {
+.im-export-actions {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -751,6 +746,10 @@ body.im-contempladas-page {
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
+    /* Neutraliza width:100% global de button no style.css (evita um CTA ocupar a linha inteira) */
+    width: auto;
+    max-width: none;
+    min-width: 15rem;
     min-height: 38px;
     padding: 0 16px;
     border-radius: 999px;
@@ -802,28 +801,6 @@ body.im-contempladas-page {
     color: rgba(21, 32, 48, 0.64);
     font-size: 1.34rem;
     font-weight: 700;
-}
-
-.im-table-view-label {
-    color: rgba(21, 32, 48, 0.66);
-    font-size: 1.08rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-.im-table-view-pill {
-    display: inline-flex;
-    align-items: center;
-    min-height: 36px;
-    padding: 0 14px;
-    border-radius: 999px;
-    background: rgba(0, 52, 110, 0.08);
-    color: var(--color-primary, #00346e);
-    font-size: 1.12rem;
-    font-weight: 800;
-    white-space: nowrap;
 }
 
 .im-results-status {
@@ -1230,139 +1207,6 @@ body.im-contempladas-page {
     color: var(--im-ink);
 }
 
-.im-note-section {
-    padding: 58px 0 110px;
-    background: #f5f6f7;
-}
-
-.im-data-note {
-    position: relative;
-    padding: 40px;
-    border-radius: 8px;
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) auto;
-    gap: 2rem;
-    align-items: center;
-    overflow: hidden;
-}
-
-.im-data-note::before {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 6px;
-    background: var(--im-orange);
-}
-
-.im-note-kicker {
-    display: inline-block;
-    margin-bottom: 1rem;
-    color: var(--color-primary, #00346e);
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-}
-
-.im-note-title {
-    color: var(--im-ink);
-}
-
-.im-note-text {
-    max-width: 58rem;
-    margin: 1rem 0 0;
-    color: rgba(21, 32, 48, 0.72);
-    font-size: 1.55rem;
-    line-height: 1.65;
-}
-
-.im-note-section .im-hero-button--primary {
-    min-width: 22rem;
-}
-
-.im-footer-card {
-    padding: 3rem;
-    border-radius: var(--im-radius-lg);
-    height: 100%;
-}
-
-.im-footer-card .title {
-    margin: 0 0 1.6rem;
-    font-family: var(--font-secondary);
-    font-size: 2.2rem;
-    color: #fff;
-}
-
-.im-footer-card p,
-.im-footer-card li,
-.im-footer-card a {
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 1.42rem;
-}
-
-.im-footer-card ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: 1rem;
-}
-
-.im-footer-card a:hover {
-    color: #fff;
-}
-
-.im-footer-brand {
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 1.8rem;
-}
-
-.im-footer-brand img {
-    max-width: 19rem;
-}
-
-.im-footer-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.im-footer-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.8rem 1.2rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    color: #fff;
-    text-decoration: none;
-    transition:
-        background-color var(--im-transition),
-        transform var(--im-transition);
-}
-
-.im-footer-chip:hover {
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-2px);
-    color: #fff;
-}
-
-.im-footer-map-wrap {
-    margin-top: 1.6rem;
-    overflow: hidden;
-    border-radius: 1.6rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.im-footer-map-wrap iframe {
-    display: block;
-    width: 100%;
-    min-height: 18rem;
-    border: 0;
-}
-
 .progress-wrap svg path {
     stroke: var(--im-orange);
 }
@@ -1396,8 +1240,7 @@ body.im-contempladas-page {
     .im-hero-shell,
     .im-filter-copy,
     .im-section-header,
-    .im-catalog-header,
-    .im-data-note {
+    .im-catalog-header {
         grid-template-columns: 1fr;
     }
 
@@ -1447,8 +1290,7 @@ body.im-contempladas-page {
     .im-hero-copy,
     .im-hero-aside,
     .im-process-shell,
-    .im-catalog-shell,
-    .im-data-note {
+    .im-catalog-shell {
         padding: 2.8rem;
     }
 
@@ -1480,8 +1322,7 @@ body.im-contempladas-page {
     }
 
     .im-action-btn,
-    .im-selection-link,
-    .im-note-section .im-hero-button--primary {
+    .im-selection-link {
         width: 100%;
     }
 
@@ -1518,17 +1359,14 @@ body.im-contempladas-page {
     .im-hero-copy,
     .im-hero-aside,
     .im-process-shell,
-    .im-catalog-shell,
-    .im-data-note {
+    .im-catalog-shell {
         border-radius: 8px;
     }
 
     .im-hero-copy,
     .im-hero-aside,
     .im-process-shell,
-    .im-catalog-shell,
-    .im-data-note,
-    .im-footer-card {
+    .im-catalog-shell {
         padding: 2.4rem;
     }
 
@@ -1539,8 +1377,7 @@ body.im-contempladas-page {
 
     .im-section-header > div,
     .im-section-header .disc,
-    .im-filter-panel,
-    .im-data-note {
+    .im-filter-panel {
         padding: 28px;
     }
 
@@ -1569,13 +1406,12 @@ body.im-contempladas-page {
         align-items: flex-start;
     }
 
-    .im-table-controls,
-    .im-table-view {
+    .im-table-controls {
         width: 100%;
     }
 
-    .im-table-view {
-        justify-content: flex-start;
+    .im-table-controls .im-table-action {
+        min-width: min(100%, 13.5rem);
     }
 }
 
@@ -1594,7 +1430,6 @@ body.im-contempladas-page {
     .im-table-action,
     .im-reset-button,
     .im-selection-link,
-    .im-footer-chip,
     .im-filter-input,
     .im-filter-select {
         transition: none;
