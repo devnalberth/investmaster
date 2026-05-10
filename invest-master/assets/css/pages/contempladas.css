@@ -119,7 +119,7 @@ body.im-contempladas-page {
 .im-contempladas-page .index-seven-area.with-video .banner-seven-inner-content .title {
     max-width: 780px;
     margin-bottom: 28px;
-    font-size: clamp(64px, 5.8vw, 104px);
+    font-size: clamp(56px, 5.1vw, 90px);
     line-height: 0.98;
     letter-spacing: 0;
 }
@@ -127,6 +127,12 @@ body.im-contempladas-page {
 .im-contempladas-page .index-seven-area.with-video .banner-seven-inner-content .title span {
     display: block;
     max-width: 100%;
+}
+
+@media (min-width: 992px) {
+    .im-contempladas-page .index-seven-area.with-video .banner-seven-inner-content .title span {
+        white-space: nowrap;
+    }
 }
 
 .im-contempladas-page .index-seven-area.with-video .banner-seven-inner-content .disc {
@@ -1275,7 +1281,7 @@ body.im-contempladas-page {
 
     .im-contempladas-page .index-seven-area.with-video .banner-seven-inner-content .title {
         max-width: 720px;
-        font-size: clamp(58px, 9vw, 86px);
+        font-size: clamp(50px, 8vw, 76px);
     }
 
     .im-section-header > div {
@@ -1342,7 +1348,7 @@ body.im-contempladas-page {
 
     .im-contempladas-page .index-seven-area.with-video .banner-seven-inner-content .title {
         max-width: 100%;
-        font-size: clamp(46px, 15vw, 62px);
+        font-size: clamp(40px, 12.5vw, 56px);
     }
 
     .im-contempladas-page .index-seven-area.with-video .banner-seven-inner-content .disc {
