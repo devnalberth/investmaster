@@ -452,10 +452,7 @@ body.im-contempladas-page {
 }
 
 .im-filter-copy {
-    display: grid;
-    grid-template-columns: minmax(0, 0.72fr) minmax(320px, 0.5fr);
-    gap: 56px;
-    align-items: end;
+    display: block;
     margin-bottom: 34px;
     color: var(--im-ink);
 }
@@ -482,20 +479,12 @@ body.im-contempladas-page {
 }
 
 .im-filter-title {
-    max-width: 13ch;
+    max-width: none;
     margin: 0;
     font-family: var(--font-secondary);
     font-size: clamp(4rem, 3.8vw, 6.4rem);
     line-height: 0.98;
     color: var(--im-ink);
-}
-
-.im-filter-text {
-    max-width: 44rem;
-    margin: 0;
-    color: rgba(21, 32, 48, 0.72);
-    font-size: 1.62rem;
-    line-height: 1.7;
 }
 
 .im-filter-panel {
@@ -694,11 +683,7 @@ body.im-contempladas-page {
 }
 
 .im-catalog-header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    justify-content: space-between;
-    align-items: start;
-    gap: 2rem;
+    display: block;
     margin-bottom: 3rem;
 }
 
@@ -714,14 +699,6 @@ body.im-contempladas-page {
 
 .im-catalog-title {
     color: var(--im-ink);
-}
-
-.im-catalog-text {
-    max-width: 68rem;
-    margin: 1rem 0 0;
-    color: rgba(21, 32, 48, 0.72);
-    font-size: 1.62rem;
-    line-height: 1.65;
 }
 
 .im-table-stage {
@@ -825,12 +802,12 @@ body.im-contempladas-page {
 .im-filter-form {
     display: grid;
     grid-template-columns:
-        minmax(140px, 0.85fr)
-        minmax(140px, 0.85fr)
-        minmax(260px, 1.5fr)
-        minmax(140px, 0.75fr)
-        minmax(140px, 0.75fr)
-        minmax(160px, 0.85fr)
+        minmax(112px, 0.9fr)
+        minmax(112px, 0.9fr)
+        minmax(200px, 1.35fr)
+        minmax(112px, 0.82fr)
+        minmax(112px, 0.82fr)
+        minmax(148px, 0.95fr)
         auto;
     gap: 0;
     align-items: stretch;
@@ -891,6 +868,8 @@ body.im-contempladas-page {
 
 .im-filter-select {
     cursor: pointer;
+    white-space: nowrap;
+    text-overflow: clip;
 }
 
 .im-filter-form .im-reset-button {
@@ -1562,9 +1541,7 @@ body.im-contempladas-page {
 
 @media (max-width: 1199px) {
     .im-hero-shell,
-    .im-filter-copy,
-    .im-section-header,
-    .im-catalog-header {
+    .im-section-header {
         grid-template-columns: 1fr;
     }
 
@@ -1724,10 +1701,6 @@ body.im-contempladas-page {
 
     .im-card-top {
         flex-direction: column;
-    }
-
-    .im-catalog-header {
-        align-items: flex-start;
     }
 
     .im-table-controls {

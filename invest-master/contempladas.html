@@ -118,9 +118,6 @@
                             <span class="im-filter-eyebrow">Filtrar cotação</span>
                             <h2 id="titulo-filtro-contempladas" class="im-filter-title">Encontre a carta certa para negociar</h2>
                         </div>
-                            <p class="im-filter-text">
-                                Refine por status, tipo, grupo, prazo e entrada. A lista é carregada da API Invest Master (via servidor seguro) e os filtros locais aplicam-se aos resultados exibidos.
-                            </p>
                     </div>
 
                     <div class="im-filter-panel">
@@ -135,8 +132,8 @@
                             <div class="im-form-field">
                                 <label class="im-form-label" for="im-status-filter">Status</label>
                                 <select id="im-status-filter" class="im-filter-select" name="status">
-                                    <option value="all">Todos (demo)</option>
-                                    <option value="disponivel,reservada,vendida">Todos (lista explícita)</option>
+                                    <option value="all">Todos</option>
+                                    <option value="disponivel,reservada,vendida">Todos status</option>
                                     <option value="disponivel">Disponível</option>
                                     <option value="reservada">Reservada</option>
                                     <option value="vendida">Vendida</option>
@@ -153,12 +150,12 @@
                             </div>
                             <div class="im-form-field im-form-field--search">
                                 <label class="im-form-label" for="im-search">Administradora/produto</label>
-                                <input id="im-search" class="im-filter-input" name="q" type="search" inputmode="search" autocomplete="off" placeholder="Digite a administradora ou produto…" />
+                                <input id="im-search" class="im-filter-input" name="q" type="search" inputmode="search" autocomplete="off" placeholder="Administradora" />
                             </div>
                             <div class="im-form-field">
                                 <label class="im-form-label" for="im-term-filter">Prazo</label>
                                 <select id="im-term-filter" class="im-filter-select" name="prazo">
-                                    <option value="all">Qualquer prazo</option>
+                                    <option value="all">Todos</option>
                                     <option value="short">Até 60</option>
                                     <option value="medium">61 a 120</option>
                                     <option value="long">121 ou mais</option>
@@ -167,7 +164,7 @@
                             <div class="im-form-field">
                                 <label class="im-form-label" for="im-entry-filter">Entrada</label>
                                 <select id="im-entry-filter" class="im-filter-select" name="entrada">
-                                    <option value="all">Qualquer entrada</option>
+                                    <option value="all">Entrada</option>
                                     <option value="low">Mais enxuta</option>
                                     <option value="mid">Intermediária</option>
                                     <option value="high">Maior entrada</option>
@@ -176,7 +173,7 @@
                             <div class="im-form-field">
                                 <label class="im-form-label" for="im-sort-filter">Ordenar</label>
                                 <select id="im-sort-filter" class="im-filter-select" name="ordem">
-                                    <option value="credit-desc">Maior crédito</option>
+                                    <option value="credit-desc">Maior Crédito</option>
                                     <option value="entry-asc">Menor entrada</option>
                                     <option value="installment-asc">Parcela mais baixa</option>
                                     <option value="term-desc">Maior prazo</option>
@@ -196,9 +193,6 @@
                         <div>
                             <span class="im-catalog-kicker">Tabela de cotas disponíveis</span>
                             <h2 id="titulo-catalogo" class="im-catalog-title">Catálogo <br>de cartas contempladas</h2>
-                            <p class="im-catalog-text">
-                                Dados integrados à API Invest Master (disponível, reservada e vendida para demonstração). Em produção, o catálogo público pode exibir apenas cartas disponíveis.
-                            </p>
                         </div>
                     </div>
 
