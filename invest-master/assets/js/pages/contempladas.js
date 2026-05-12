@@ -547,8 +547,9 @@ function updateResults(rows) {
         elements.emptyState.hidden = false;
         if (elements.emptyTitle) elements.emptyTitle.textContent = "Não foi possível carregar as cartas";
         if (elements.emptyDetail) {
-            elements.emptyDetail.textContent =
-                "Verifique a conexão, as variáveis de ambiente na Vercel e se a API está disponível. Desenvolvimento local exige `vercel dev` para a rota /api/cartas.";
+            const hint =
+                "Dicas: na Vercel, confira INVESTMASTER_API_KEY e INVESTMASTER_API_BASE_URL (URL exata da API, conforme documentação do painel). Em desenvolvimento local, use `vercel dev` para existir a rota /api/cartas.";
+            elements.emptyDetail.textContent = state.loadError + " " + hint;
         }
         return;
     }

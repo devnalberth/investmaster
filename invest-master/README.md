@@ -9,7 +9,7 @@ Configure no painel do projeto (**Settings → Environment Variables**) ou com `
 | Variável | Obrigatória | Descrição |
 |----------|-------------|-----------|
 | `INVESTMASTER_API_KEY` | **Sim** | Chave da API (ex.: `IM-…`). Usada no servidor com `Authorization: Bearer …`. **Não** commite no Git nem coloque em JS/HTML público. |
-| `INVESTMASTER_API_BASE_URL` | Não | Origem da API, **sem** path final. Padrão: `https://api.investmaster.com.br`. O proxy chama `{BASE}/api/v1/cartas` e, em caso de 404, tenta `{BASE}/api/public/cartas`. |
+| `INVESTMASTER_API_BASE_URL` | **Recomendada** | Origem da API, **sem** `/api/v1` no final — só protocolo + host (ex.: `https://api.seudominio.com`). O proxy chama `{BASE}/api/v1/cartas` e, em 404, `{BASE}/api/public/cartas`. O padrão no código é `https://api.investmaster.com.br`; se esse host não resolver no DNS, defina esta variável com a **URL base exata** fornecida pela Invest Master. |
 | `INVESTMASTER_WEBHOOK_SECRET` | Não | Se definida, o POST em `/api/webhook-cartas` exige o cabeçalho `X-Investmaster-Webhook-Secret` (ou `X-Webhook-Secret`) com o **mesmo** valor. Recomendado em produção. |
 
 ### Desenvolvimento local
