@@ -230,7 +230,7 @@
 
                         <div class="im-table-shell" tabindex="0" aria-label="Tabela de cartas contempladas com rolagem horizontal">
                             <table class="im-desktop-table">
-                                <caption class="im-sr-only">Lista de cartas contempladas disponíveis com seleção de cotas, administradora, produto, crédito, entrada, prazo, parcela e ação comercial.</caption>
+                                <caption class="im-sr-only">Lista de cartas contempladas com seleção, administradora, produto, status, valores, prazo, parcela, ver detalhes e negociar.</caption>
                                 <thead>
                                     <tr>
                                         <th scope="col" class="im-select-cell">Juntar cotas</th>
@@ -241,6 +241,7 @@
                                         <th scope="col">Entrada</th>
                                         <th scope="col">Prazo</th>
                                         <th scope="col">Valor da parcela</th>
+                                        <th scope="col" class="im-detail-col"><span class="im-sr-only">Detalhes</span></th>
                                         <th scope="col">Ação</th>
                                     </tr>
                                 </thead>
@@ -584,6 +585,81 @@
     </div>
 
     <div id="anywhere-home"></div>
+
+    <div id="im-detail-modal" class="im-modal" hidden>
+        <div class="im-modal__backdrop" data-im-modal-close tabindex="-1" aria-hidden="true"></div>
+        <div
+            class="im-modal__dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="im-detail-modal-title"
+            tabindex="-1">
+            <header class="im-modal__header">
+                <h2 id="im-detail-modal-title" class="im-modal__title">Detalhes da Carta</h2>
+                <button type="button" id="im-detail-modal-close" class="im-modal__close" data-im-modal-close aria-label="Fechar detalhes da carta">
+                    <i class="far fa-times" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="im-modal__body">
+                <div class="im-detail-hero">
+                    <span class="im-detail-hero__eyebrow">Carta contemplada</span>
+                    <span id="im-detail-hero-badge" class="im-detail-hero__badge" translate="no"></span>
+                    <p id="im-detail-numero" class="im-detail-hero__numero im-number" translate="no"></p>
+                    <p id="im-detail-valor" class="im-detail-hero__valor im-number"></p>
+                    <p id="im-detail-subparcelas" class="im-detail-hero__sub im-number"></p>
+                </div>
+
+                <div class="im-detail-grid" aria-label="Dados da carta">
+                    <div class="im-detail-kv">
+                        <span class="im-detail-kv__label">Grupo</span>
+                        <span id="im-detail-grupo" class="im-detail-kv__value im-number" translate="no"></span>
+                    </div>
+                    <div class="im-detail-kv">
+                        <span class="im-detail-kv__label">Cota</span>
+                        <span id="im-detail-cota" class="im-detail-kv__value im-number" translate="no"></span>
+                    </div>
+                    <div class="im-detail-kv">
+                        <span class="im-detail-kv__label">Administradora</span>
+                        <span id="im-detail-admin" class="im-detail-kv__value" translate="no"></span>
+                    </div>
+                    <div class="im-detail-kv">
+                        <span class="im-detail-kv__label">Taxa admin</span>
+                        <span id="im-detail-taxa" class="im-detail-kv__value im-number"></span>
+                    </div>
+                    <div class="im-detail-kv">
+                        <span class="im-detail-kv__label">Entrada</span>
+                        <span id="im-detail-entrada" class="im-detail-kv__value im-number"></span>
+                    </div>
+                    <div class="im-detail-kv">
+                        <span class="im-detail-kv__label">% entrada</span>
+                        <span id="im-detail-pct-entrada" class="im-detail-kv__value im-number"></span>
+                    </div>
+                    <div class="im-detail-kv">
+                        <span class="im-detail-kv__label">Saldo devedor</span>
+                        <span id="im-detail-saldo" class="im-detail-kv__value im-number"></span>
+                    </div>
+                    <div class="im-detail-kv">
+                        <span class="im-detail-kv__label">Prazo</span>
+                        <span id="im-detail-prazo" class="im-detail-kv__value im-number"></span>
+                    </div>
+                    <div class="im-detail-kv">
+                        <span class="im-detail-kv__label">Redução / lance</span>
+                        <span id="im-detail-reducao" class="im-detail-kv__value im-number"></span>
+                    </div>
+                    <div class="im-detail-kv">
+                        <span class="im-detail-kv__label">Contemplado em</span>
+                        <span id="im-detail-contemplado" class="im-detail-kv__value im-number"></span>
+                    </div>
+                </div>
+
+                <div id="im-detail-vendida" class="im-detail-vendida" hidden>
+                    <p class="im-detail-vendida__label">Vendida para:</p>
+                    <p id="im-detail-vendido-nome" class="im-detail-vendida__nome" translate="no"></p>
+                    <p id="im-detail-vendido-data" class="im-detail-vendida__data im-number"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="progress-wrap" aria-hidden="true">
         <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">

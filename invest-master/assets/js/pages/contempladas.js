@@ -52,7 +52,11 @@ const elements = {
     results: document.getElementById("im-results-status"),
     selectionPanel: document.getElementById("im-selection-panel"),
     selectionText: document.getElementById("im-selection-text"),
-    selectionLink: document.getElementById("im-selection-link")
+    selectionLink: document.getElementById("im-selection-link"),
+    detailModal: document.getElementById("im-detail-modal"),
+    detailModalDialog: document.querySelector("#im-detail-modal .im-modal__dialog"),
+    detailModalClose: document.getElementById("im-detail-modal-close"),
+    detailVendida: document.getElementById("im-detail-vendida")
 };
 
 function extractCartasArray(payload) {
@@ -135,9 +139,80 @@ function statusPillClass(key) {
     return "is-outro";
 }
 
+function firstDefined(raw, keys) {
+    for (let i = 0; i < keys.length; i++) {
+        const k = keys[i];
+        if (raw[k] != null && raw[k] !== "") {
+            return raw[k];
+        }
+    }
+    return null;
+}
+
+function parsePercentLoose(value) {
+    if (value == null || value === "") {
+        return null;
+    }
+    if (typeof value === "number" && Number.isFinite(value)) {
+        if (value > 0 && value <= 1) {
+            return value * 100;
+        }
+        return value;
+    }
+    const s = String(value)
+        .trim()
+        .replace(/\s/g, "")
+        .replace(/%/g, "");
+    if (!s) {
+        return null;
+    }
+    const normalized = s.includes(",") ? s.replace(/\./g, "").replace(",", ".") : s.replace(",", ".");
+    const n = Number(normalized);
+    if (!Number.isFinite(n)) {
+        return null;
+    }
+    if (n > 0 && n <= 1) {
+        return n * 100;
+    }
+    return n;
+}
+
+function formatPercentBrFromNumber(n, fractionDigits) {
+    if (n == null || !Number.isFinite(n)) {
+        return "—";
+    }
+    const fd = typeof fractionDigits === "number" ? fractionDigits : 2;
+    return (
+        new Intl.NumberFormat("pt-BR", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: fd
+        }).format(n) + "%"
+    );
+}
+
+function formatDateBr(value) {
+    if (value == null || value === "") {
+        return "—";
+    }
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) {
+        return "—";
+    }
+    return d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+}
+
+function padIntDisplay(value, width) {
+    const n = Math.round(Number(value));
+    if (!Number.isFinite(n) || n < 0) {
+        return "—";
+    }
+    return String(n).padStart(width, "0");
+}
+
 function mapApiCard(raw) {
     const grupo = Number(raw.grupoNumero ?? raw.grupo ?? 0) || 0;
-    const cota = raw.cotaNumero != null ? String(raw.cotaNumero) : "";
+    const cotaRaw = firstDefined(raw, ["cotaNumero", "cota", "cota_numero"]);
+    const cota = cotaRaw != null ? String(cotaRaw) : "";
     const id = String(raw.id || raw.numero || `g${grupo}${cota ? "-c" + cota : ""}`);
     const tipoKey = normalizeTipoKey(raw.tipo);
     const product = normalizeProductInternal(tipoKey);
@@ -158,24 +233,71 @@ function mapApiCard(raw) {
     if (!balance && credit > 0 && raw.saldo == null && raw.saldoDevedor == null && raw.saldo_devedor == null && raw.saldoCentavos == null) {
         balance = Math.max(0, credit - entry);
     }
-    const entryPercent = credit > 0 ? (entry / credit) * 100 : 0;
+    const computedEntryPercent = credit > 0 ? (entry / credit) * 100 : 0;
+    const apiEntryPercent = parsePercentLoose(firstDefined(raw, ["entradaPercent", "percentualEntrada", "entrada_percent"]));
+    const entryPercent = apiEntryPercent != null ? apiEntryPercent : computedEntryPercent;
     const statusKey = normalizeStatusKey(raw.status);
     let whatsappUrl = raw.whatsappUrl;
     if (typeof whatsappUrl === "string") {
         whatsappUrl = whatsappUrl.trim();
-        if (!whatsappUrl || whatsappUrl === "null") whatsappUrl = null;
+        if (!whatsappUrl || whatsappUrl === "null") {
+            whatsappUrl = null;
+        }
     } else {
         whatsappUrl = null;
     }
+
+    const taxaNum = parsePercentLoose(firstDefined(raw, ["taxa", "taxaAdmin", "taxaAdministracao", "taxaAdministrativa", "taxa_admin"]));
+    const taxaPt = taxaNum != null ? formatPercentBrFromNumber(taxaNum, 2) : "—";
+
+    const reducaoNum = parsePercentLoose(firstDefined(raw, ["reducao", "reducaoLance", "lancePercentual", "reducao_percent"]));
+    const reducaoPt = reducaoNum != null ? formatPercentBrFromNumber(reducaoNum, 2) : "—";
+
+    const dataContemplacaoRaw = firstDefined(raw, ["dataContemplacao", "data_contemplacao", "contempladoEm", "contemplado_em"]);
+    const dataContemplacaoPt = formatDateBr(dataContemplacaoRaw);
+
+    const vendidoParaName = (() => {
+        const v = firstDefined(raw, ["vendidoPara", "compradorNome", "clienteNome", "nomeComprador", "buyerName"]);
+        if (v == null || v === "") {
+            return "";
+        }
+        return String(v).trim();
+    })();
+    const vendidoEmRaw = firstDefined(raw, ["vendidoEm", "dataVenda", "vendido_em", "data_venda"]);
+    const vendidoEmPt = formatDateBr(vendidoEmRaw);
+
+    const grupoPadded = padIntDisplay(grupo, 4);
+    const cotaTrim = cota.trim();
+    let cotaPadded = "—";
+    if (cotaTrim) {
+        if (/^\d+$/.test(cotaTrim)) {
+            cotaPadded = padIntDisplay(Number(cotaTrim), 3);
+        } else {
+            cotaPadded = cotaTrim;
+        }
+    }
+
+    const countLine = parcelas > 0 ? parcelas : term;
+    let subParcelasText = "—";
+    if (countLine > 0 && installment > 0) {
+        subParcelasText = numberFormatter.format(countLine) + "x de " + formatCurrencyFromCents(installment) + "/mês";
+    } else if (countLine > 0 && installment === 0) {
+        subParcelasText = numberFormatter.format(countLine) + "x de —/mês";
+    }
+
+    const tipoLabel = formatProductLabel(product);
 
     return {
         id,
         numero: raw.numero != null ? String(raw.numero) : id,
         group: grupo,
+        grupoNumeroPadded: grupoPadded,
         cotaNumero: cota,
+        cotaNumeroPadded: cotaPadded,
         parcelas,
         product,
         tipoKey,
+        tipoLabel,
         admin,
         credit,
         entry,
@@ -183,6 +305,13 @@ function mapApiCard(raw) {
         installment,
         term,
         entryPercent,
+        entradaPercentPt: formatPercentBrFromNumber(entryPercent, 2),
+        taxaPt: taxaPt,
+        reducaoPt: reducaoPt,
+        dataContemplacaoPt: dataContemplacaoPt,
+        subParcelasText: subParcelasText,
+        vendidoParaName: vendidoParaName,
+        vendidoEmPt: vendidoEmPt,
         statusKey,
         statusLabel: statusLabel(statusKey),
         whatsappUrl
@@ -468,6 +597,129 @@ function buildSelectionWhatsAppLink(rows) {
     return buildWhatsAppFallbackLink(rows);
 }
 
+let detailModalOpen = false;
+let detailModalLastFocus = null;
+
+function getFocusableInDetailDialog() {
+    const dialog = elements.detailModalDialog;
+    if (!dialog) {
+        return [];
+    }
+    return Array.from(
+        dialog.querySelectorAll(
+            "button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex=\"-1\"])"
+        )
+    ).filter((el) => {
+        if (el.closest("[hidden]")) {
+            return false;
+        }
+        return el.getAttribute("aria-hidden") !== "true";
+    });
+}
+
+function onDetailModalKeydown(e) {
+    if (!detailModalOpen) {
+        return;
+    }
+    if (e.key === "Escape") {
+        e.preventDefault();
+        closeDetailModal();
+        return;
+    }
+    if (e.key !== "Tab") {
+        return;
+    }
+    const list = getFocusableInDetailDialog();
+    if (!list.length) {
+        return;
+    }
+    const first = list[0];
+    const last = list[list.length - 1];
+    if (e.shiftKey) {
+        if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        }
+    } else if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+    }
+}
+
+function setDetailText(id, text) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.textContent = text;
+    }
+}
+
+function fillDetailModal(row) {
+    const badge = document.getElementById("im-detail-hero-badge");
+    if (badge) {
+        badge.textContent = row.tipoLabel || "—";
+    }
+    setDetailText("im-detail-numero", row.numero || "—");
+    setDetailText("im-detail-valor", formatCurrencyFromCents(row.credit));
+    setDetailText("im-detail-subparcelas", row.subParcelasText || "—");
+    setDetailText("im-detail-grupo", row.grupoNumeroPadded || "—");
+    setDetailText("im-detail-cota", row.cotaNumeroPadded || "—");
+    setDetailText("im-detail-admin", row.admin || "—");
+    setDetailText("im-detail-taxa", row.taxaPt || "—");
+    setDetailText("im-detail-entrada", formatCurrencyFromCents(row.entry));
+    setDetailText("im-detail-pct-entrada", row.entradaPercentPt || "—");
+    setDetailText("im-detail-saldo", formatCurrencyFromCents(row.balance));
+    setDetailText("im-detail-prazo", row.term > 0 ? numberFormatter.format(row.term) + " meses" : "—");
+    setDetailText("im-detail-reducao", row.reducaoPt || "—");
+    setDetailText("im-detail-contemplado", row.dataContemplacaoPt || "—");
+
+    const foot = elements.detailVendida;
+    if (foot) {
+        const showVendida =
+            row.statusKey === "vendida" && Boolean((row.vendidoParaName && row.vendidoParaName.trim()) || row.vendidoEmPt !== "—");
+        foot.hidden = !showVendida;
+        if (showVendida) {
+            setDetailText("im-detail-vendido-nome", (row.vendidoParaName && row.vendidoParaName.trim()) || "—");
+            setDetailText("im-detail-vendido-data", row.vendidoEmPt || "—");
+        }
+    }
+}
+
+function openDetailModal(rowId) {
+    const row = contempladasData.find((r) => r.id === rowId);
+    if (!row || !elements.detailModal) {
+        return;
+    }
+    detailModalLastFocus = document.activeElement;
+    fillDetailModal(row);
+    elements.detailModal.removeAttribute("hidden");
+    document.body.style.overflow = "hidden";
+    detailModalOpen = true;
+    document.addEventListener("keydown", onDetailModalKeydown, true);
+    requestAnimationFrame(() => {
+        if (elements.detailModalClose) {
+            elements.detailModalClose.focus();
+        }
+    });
+}
+
+function closeDetailModal() {
+    if (!detailModalOpen || !elements.detailModal) {
+        return;
+    }
+    elements.detailModal.setAttribute("hidden", "");
+    document.body.style.overflow = "";
+    detailModalOpen = false;
+    document.removeEventListener("keydown", onDetailModalKeydown, true);
+    if (detailModalLastFocus && typeof detailModalLastFocus.focus === "function") {
+        try {
+            detailModalLastFocus.focus();
+        } catch {
+            /* ignore */
+        }
+    }
+    detailModalLastFocus = null;
+}
+
 function syncUrl() {
     const params = new URLSearchParams();
 
@@ -589,8 +841,15 @@ function renderTable(rows) {
                 <td class="im-money-cell im-number">${formatCurrencyFromCents(row.entry)}</td>
                 <td class="im-term-cell im-number">${numberFormatter.format(row.term)}</td>
                 <td class="im-money-cell im-number">${formatCurrencyFromCents(row.installment)}</td>
+                <td class="im-detail-cell">
+                    <button type="button" class="im-eye-btn" data-im-open-detail="${escapeHtml(row.id)}" aria-label="Ver detalhes da carta ${escapeHtml(row.numero)}">
+                        <i class="far fa-eye" aria-hidden="true"></i>
+                    </button>
+                </td>
                 <td class="im-row-action">
-                    <a class="im-action-btn" href="${escapeHtml(actionHref)}" target="_blank" rel="noopener noreferrer">Negociar</a>
+                    <div class="im-row-actions">
+                        <a class="im-action-btn" href="${escapeHtml(actionHref)}" target="_blank" rel="noopener noreferrer">Negociar</a>
+                    </div>
                 </td>
             </tr>
         `;
@@ -637,7 +896,12 @@ function renderCards(rows) {
                         <dd class="im-number">${formatCurrencyFromCents(row.installment)}</dd>
                     </div>
                 </dl>
-                <a class="im-action-btn" href="${escapeHtml(actionHref)}" target="_blank" rel="noopener noreferrer">Negociar</a>
+                <div class="im-card-actions">
+                    <button type="button" class="im-eye-btn" data-im-open-detail="${escapeHtml(row.id)}" aria-label="Ver detalhes da carta ${escapeHtml(row.numero)}">
+                        <i class="far fa-eye" aria-hidden="true"></i>
+                    </button>
+                    <a class="im-action-btn" href="${escapeHtml(actionHref)}" target="_blank" rel="noopener noreferrer">Negociar</a>
+                </div>
             </article>
         `;
         })
@@ -674,6 +938,27 @@ function updateApiFiltersFromForm() {
     state.apiTipo = elements.tipo.value;
     fetchCartas();
 }
+
+if (elements.detailModal) {
+    elements.detailModal.addEventListener("click", (event) => {
+        if (event.target.closest("[data-im-modal-close]")) {
+            event.preventDefault();
+            closeDetailModal();
+        }
+    });
+}
+
+document.addEventListener("click", (event) => {
+    const openBtn = event.target.closest("[data-im-open-detail]");
+    if (!openBtn) {
+        return;
+    }
+    event.preventDefault();
+    const rid = openBtn.getAttribute("data-im-open-detail");
+    if (rid) {
+        openDetailModal(rid);
+    }
+});
 
 hydrateFromUrl();
 fetchCartas();
