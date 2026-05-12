@@ -118,9 +118,9 @@
                             <span class="im-filter-eyebrow">Filtrar cotação</span>
                             <h2 id="titulo-filtro-contempladas" class="im-filter-title">Encontre a carta certa para negociar</h2>
                         </div>
-                        <p class="im-filter-text">
-                            Refine por grupo, prazo, entrada e prioridade comercial. A lista abaixo responde em tempo real e mantém a negociação objetiva.
-                        </p>
+                            <p class="im-filter-text">
+                                Refine por status, tipo, grupo, prazo e entrada. A lista é carregada da API Invest Master (via servidor seguro) e os filtros locais aplicam-se aos resultados exibidos.
+                            </p>
                     </div>
 
                     <div class="im-filter-panel">
@@ -133,6 +133,25 @@
 
                         <form id="im-filters" class="im-filter-form" aria-describedby="im-results-status">
                             <div class="im-form-field">
+                                <label class="im-form-label" for="im-status-filter">Status</label>
+                                <select id="im-status-filter" class="im-filter-select" name="status">
+                                    <option value="all">Todos (demo)</option>
+                                    <option value="disponivel,reservada,vendida">Todos (lista explícita)</option>
+                                    <option value="disponivel">Disponível</option>
+                                    <option value="reservada">Reservada</option>
+                                    <option value="vendida">Vendida</option>
+                                </select>
+                            </div>
+                            <div class="im-form-field">
+                                <label class="im-form-label" for="im-type-filter">Tipo</label>
+                                <select id="im-type-filter" class="im-filter-select" name="tipo">
+                                    <option value="all">Todos os tipos</option>
+                                    <option value="imovel">Imóvel</option>
+                                    <option value="veiculo">Veículo</option>
+                                    <option value="servico">Serviço</option>
+                                </select>
+                            </div>
+                            <div class="im-form-field im-form-field--search">
                                 <label class="im-form-label" for="im-search">Administradora/produto</label>
                                 <input id="im-search" class="im-filter-input" name="q" type="search" inputmode="search" autocomplete="off" placeholder="Digite a administradora ou produto…" />
                             </div>
@@ -176,9 +195,9 @@
                     <div class="im-catalog-header">
                         <div>
                             <span class="im-catalog-kicker">Tabela de cotas disponíveis</span>
-                            <h2 id="titulo-catalogo" class="im-catalog-title">Catálogo demonstrativo <br>de cartas contempladas</h2>
+                            <h2 id="titulo-catalogo" class="im-catalog-title">Catálogo <br>de cartas contempladas</h2>
                             <p class="im-catalog-text">
-                                Os dados abaixo usam as cartas do anexo como base. Na próxima fase, o dashboard poderá cadastrar, atualizar, gerar contratos e publicar automaticamente nesta página.
+                                Dados integrados à API Invest Master (disponível, reservada e vendida para demonstração). Em produção, o catálogo público pode exibir apenas cartas disponíveis.
                             </p>
                         </div>
                     </div>
@@ -217,6 +236,7 @@
                                         <th scope="col" class="im-select-cell">Juntar cotas</th>
                                         <th scope="col">Administradora</th>
                                         <th scope="col">Produto</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Valor do crédito</th>
                                         <th scope="col">Entrada</th>
                                         <th scope="col">Prazo</th>
@@ -228,8 +248,8 @@
                             </table>
 
                             <div id="im-empty-state" class="im-empty-state" hidden>
-                                <strong>Nenhuma carta encontrada</strong>
-                                Ajuste os filtros para exibir outras opções desta vitrine demonstrativa.
+                                <strong id="im-empty-title">Nenhuma carta encontrada</strong>
+                                <p id="im-empty-detail" class="disc" style="margin-top: 0.75rem;">Ajuste os filtros para exibir outras opções.</p>
                             </div>
                         </div>
 
