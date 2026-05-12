@@ -6,9 +6,6 @@
  * Repassa query string (status, tipo) para o upstream.
  */
 
-/** Padrão — confirme no suporte/documentação da Invest Master; se não resolver, use INVESTMASTER_API_BASE_URL. */
-const DEFAULT_BASE = "https://api.investmaster.com.br";
-
 function stripTrailingSlash(s) {
     return String(s || "").replace(/\/+$/, "");
 }
@@ -67,22 +64,33 @@ module.exports = async function cartasProxy(req, res) {
     }
 
     const apiKey = process.env.INVESTMASTER_API_KEY;
-    const baseUrl = stripTrailingSlash(process.env.INVESTMASTER_API_BASE_URL || DEFAULT_BASE);
+    const rawBase = process.env.INVESTMASTER_API_BASE_URL;
+
+    if (!apiKey) {
+        res.status(500).json({
+            error: "missing_api_key",
+            message: "Configure INVESTMASTER_API_KEY nas variáveis de ambiente do deploy."
+        });
+        return;
+    }
+
+    if (!rawBase || !String(rawBase).trim()) {
+        res.status(500).json({
+            error: "missing_api_base_url",
+            message:
+                "Defina INVESTMASTER_API_BASE_URL na Vercel com a URL base da API (a mesma que aparece na documentação ou no suporte da Invest Master, em geral só protocolo + domínio, sem /api/v1 no final). O host api.investmaster.com.br não é usado por padrão porque costuma não existir no DNS."
+        });
+        return;
+    }
+
+    const baseUrl = stripTrailingSlash(String(rawBase).trim());
 
     try {
         void new URL(baseUrl);
     } catch {
         res.status(500).json({
             error: "invalid_api_base_url",
-            message: "INVESTMASTER_API_BASE_URL inválida. Use uma URL absoluta, ex.: https://seu-dominio-da-api.com"
-        });
-        return;
-    }
-
-    if (!apiKey) {
-        res.status(500).json({
-            error: "missing_api_key",
-            message: "Configure INVESTMASTER_API_KEY nas variáveis de ambiente do deploy."
+            message: "INVESTMASTER_API_BASE_URL inválida. Use uma URL absoluta, ex.: https://api.seuprovedor.com"
         });
         return;
     }
@@ -102,7 +110,8 @@ module.exports = async function cartasProxy(req, res) {
 
     const headers = {
         Accept: "application/json",
-        Authorization: "Bearer " + apiKey
+        Authorization: "Bearer " + apiKey,
+        "X-API-Key": apiKey
     };
 
     const primaryUrl = buildUpstreamUrl(baseUrl, "/api/v1/cartas", searchParams);
