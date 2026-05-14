@@ -240,9 +240,19 @@ function asPhaseArray(value) {
         return [parsed];
     }
     if (typeof parsed === "string" && parsed.trim()) {
-        return [parsed.trim()];
+        return splitPhaseLabel(parsed);
     }
     return [];
+}
+
+function splitPhaseLabel(value) {
+    const label = String(value || "").trim();
+    if (!label) return [];
+    const parts = label.split(/\s*(?:\+|\be\b|;|\n)\s*/i).map((part) => part.trim()).filter(Boolean);
+    if (parts.length > 1 && parts.every((part) => /\d+\s*x/i.test(part))) {
+        return parts;
+    }
+    return [label];
 }
 
 function parsePositiveInteger(value) {
@@ -262,6 +272,7 @@ function pickPhaseCount(phase) {
         firstDefined(phase, [
             "parcelas",
             "quantidade",
+            "quantidadeParcelas",
             "qtd",
             "qtdParcelas",
             "numeroParcelas",
@@ -286,20 +297,54 @@ function pickPhaseAmountCents(phase) {
 }
 
 function normalizeInstallmentPhases(raw, fallbackCount, fallbackAmountCents) {
-    let rawPhases = asPhaseArray(
-        firstDefined(raw, [
-            "parcelasFases",
-            "parcelas_fases",
-            "parcelasPorFase",
-            "parcelas_por_fase",
-            "fasesParcelas",
-            "fases_parcelas",
-            "fases",
-            "planoParcelas"
-        ])
-    );
+    const phaseSource = firstDefined(raw, [
+        "parcelasFases",
+        "parcelas_fases",
+        "parcelasFasesTexto",
+        "parcelas_fases_texto",
+        "parcelasFasesLabel",
+        "parcelas_fases_label",
+        "parcelasResumo",
+        "parcelas_resumo",
+        "parcelasDescricao",
+        "parcelas_descricao",
+        "resumoParcelas",
+        "resumo_parcelas",
+        "parcelasPorFase",
+        "parcelas_por_fase",
+        "fasesParcelas",
+        "fases_parcelas",
+        "fases",
+        "parcelamento",
+        "parcelamentoFases",
+        "parcelamento_fases",
+        "planoParcelas",
+        "planoParcelasTexto",
+        "plano_parcelas_texto"
+    ]);
+    let rawPhases = asPhaseArray(phaseSource);
+
+    if (!rawPhases.length && typeof raw.parcelas === "string" && /\d+\s*x/i.test(raw.parcelas)) {
+        rawPhases = asPhaseArray(raw.parcelas);
+    }
+
     if (!rawPhases.length && Array.isArray(raw.parcelas)) {
         rawPhases = raw.parcelas;
+    }
+
+    if (!rawPhases.length && raw.parcelas && typeof raw.parcelas === "object") {
+        rawPhases = asPhaseArray(raw.parcelas);
+    }
+
+    if (!rawPhases.length) {
+        rawPhases = asPhaseArray(
+            firstDefined(raw, [
+                "descricaoParcelas",
+                "descricao_parcelas",
+                "textoParcelas",
+                "texto_parcelas"
+            ])
+        );
     }
 
     const phases = rawPhases
@@ -313,7 +358,7 @@ function normalizeInstallmentPhases(raw, fallbackCount, fallbackAmountCents) {
             const customLabel = firstDefined(phase || {}, ["label", "descricao", "descrição", "texto", "description"]);
             const label =
                 count > 0 && amountCents > 0
-                    ? numberFormatter.format(count) + "x de " + formatCurrencyFromCents(amountCents)
+                    ? numberFormatter.format(count) + "x " + formatCurrencyFromCents(amountCents)
                     : customLabel
                       ? String(customLabel).trim()
                       : "";
@@ -330,7 +375,7 @@ function normalizeInstallmentPhases(raw, fallbackCount, fallbackAmountCents) {
             {
                 count: fallbackCount,
                 amountCents: fallbackAmountCents,
-                label: numberFormatter.format(fallbackCount) + "x de " + formatCurrencyFromCents(fallbackAmountCents)
+                label: numberFormatter.format(fallbackCount) + "x " + formatCurrencyFromCents(fallbackAmountCents)
             }
         ];
     }
@@ -795,7 +840,8 @@ function renderInstallmentPhases(row) {
             ${phases
                 .map((phase, index) => {
                     const tone = index === 0 ? "is-first" : "is-next";
-                    return `<span class="im-phase-chip ${tone}">${escapeHtml(phase.label)}</span>`;
+                    const separator = index > 0 ? `<span class="im-phase-separator" aria-hidden="true">+</span>` : "";
+                    return `${separator}<span class="im-phase-chip ${tone}">${escapeHtml(phase.label)}</span>`;
                 })
                 .join("")}
         </span>
