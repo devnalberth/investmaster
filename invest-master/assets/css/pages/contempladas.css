@@ -950,7 +950,7 @@ body.im-contempladas-page {
 
 .im-desktop-table {
     width: 100%;
-    min-width: 1240px;
+    min-width: 1340px;
     border-collapse: separate;
     border-spacing: 0 12px;
     overflow: hidden;
@@ -1031,9 +1031,7 @@ body.im-contempladas-page {
 .im-desktop-table th:nth-child(5),
 .im-desktop-table td:nth-child(5),
 .im-desktop-table th:nth-child(6),
-.im-desktop-table td:nth-child(6),
-.im-desktop-table th:nth-child(8),
-.im-desktop-table td:nth-child(8) {
+.im-desktop-table td:nth-child(6) {
     width: 15rem;
 }
 
@@ -1042,8 +1040,18 @@ body.im-contempladas-page {
     width: 11rem;
 }
 
+.im-desktop-table th:nth-child(8),
+.im-desktop-table td:nth-child(8) {
+    width: 22rem;
+}
+
 .im-desktop-table th:nth-child(9),
 .im-desktop-table td:nth-child(9) {
+    width: 5.6rem;
+}
+
+.im-desktop-table th:nth-child(10),
+.im-desktop-table td:nth-child(10) {
     width: 14rem;
 }
 
@@ -1141,6 +1149,48 @@ body.im-contempladas-page {
     color: var(--im-ink-soft);
     font-size: 1.18rem;
     white-space: normal;
+}
+
+.im-installment-cell {
+    color: var(--im-ink);
+    font-size: 1.24rem;
+    line-height: 1.35;
+}
+
+.im-phase-stack {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+}
+
+.im-phase-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    max-width: 100%;
+    min-height: 2.8rem;
+    padding: 0.42rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 52, 110, 0.12);
+    background: rgba(0, 52, 110, 0.06);
+    color: var(--im-ink);
+    font-size: 1.12rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.im-phase-chip.is-next {
+    border-color: rgba(221, 138, 31, 0.22);
+    background: rgba(221, 138, 31, 0.11);
+    color: #8a4a0a;
+}
+
+.im-phase-empty {
+    color: rgba(21, 32, 48, 0.52);
+    font-weight: 800;
 }
 
 .im-row-action {
@@ -1494,6 +1544,14 @@ body.im-contempladas-page {
     margin: 0;
     color: var(--im-ink);
     font-size: 1.45rem;
+}
+
+.im-card-phases .im-phase-stack {
+    align-items: flex-start;
+}
+
+.im-card-phases .im-phase-chip {
+    font-size: 1.08rem;
 }
 
 .im-empty-state {

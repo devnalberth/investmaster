@@ -72,8 +72,13 @@ function extractCartasArray(payload) {
 function parseReaisToCents(value) {
     if (value == null || value === "") return 0;
     if (typeof value === "string") {
-        const t = value.trim();
-        const normalized = t.replace(/\./g, "").replace(",", ".");
+        const t = value.trim().replace(/[^\d,.-]/g, "");
+        if (!t) return 0;
+        const normalized = t.includes(",")
+            ? t.replace(/\./g, "").replace(",", ".")
+            : /^\d{1,3}(\.\d{3})+$/.test(t)
+              ? t.replace(/\./g, "")
+              : t;
         const n = Number(normalized);
         return Number.isFinite(n) ? Math.round(n * 100) : 0;
     }
@@ -209,6 +214,130 @@ function padIntDisplay(value, width) {
     return String(n).padStart(width, "0");
 }
 
+function parseJsonMaybe(value) {
+    if (typeof value !== "string") {
+        return value;
+    }
+    const trimmed = value.trim();
+    if (!trimmed || (!trimmed.startsWith("[") && !trimmed.startsWith("{"))) {
+        return value;
+    }
+    try {
+        return JSON.parse(trimmed);
+    } catch {
+        return value;
+    }
+}
+
+function asPhaseArray(value) {
+    const parsed = parseJsonMaybe(value);
+    if (Array.isArray(parsed)) {
+        return parsed;
+    }
+    if (parsed && typeof parsed === "object") {
+        if (Array.isArray(parsed.fases)) return parsed.fases;
+        if (Array.isArray(parsed.items)) return parsed.items;
+        return [parsed];
+    }
+    if (typeof parsed === "string" && parsed.trim()) {
+        return [parsed.trim()];
+    }
+    return [];
+}
+
+function parsePositiveInteger(value) {
+    if (value == null || value === "") return 0;
+    const match = String(value).match(/\d+/);
+    if (!match) return 0;
+    const n = Math.round(Number(match[0]));
+    return Number.isFinite(n) && n > 0 ? n : 0;
+}
+
+function pickPhaseCount(phase) {
+    if (!phase || typeof phase !== "object") {
+        const match = String(phase || "").match(/(\d+)\s*x/i);
+        return match ? parsePositiveInteger(match[1]) : 0;
+    }
+    return parsePositiveInteger(
+        firstDefined(phase, [
+            "parcelas",
+            "quantidade",
+            "qtd",
+            "qtdParcelas",
+            "numeroParcelas",
+            "nParcelas",
+            "prazo",
+            "meses",
+            "count"
+        ])
+    );
+}
+
+function pickPhaseAmountCents(phase) {
+    if (!phase || typeof phase !== "object") {
+        return 0;
+    }
+    const cents = firstDefined(phase, ["valorParcelaCentavos", "valorCentavos", "parcelaCentavos", "amountCents"]);
+    if (cents != null) {
+        const n = Math.round(Number(cents));
+        return Number.isFinite(n) ? n : 0;
+    }
+    return parseReaisToCents(firstDefined(phase, ["valorParcela", "valor", "parcela", "valorMensal", "amount"]));
+}
+
+function normalizeInstallmentPhases(raw, fallbackCount, fallbackAmountCents) {
+    let rawPhases = asPhaseArray(
+        firstDefined(raw, [
+            "parcelasFases",
+            "parcelas_fases",
+            "parcelasPorFase",
+            "parcelas_por_fase",
+            "fasesParcelas",
+            "fases_parcelas",
+            "fases",
+            "planoParcelas"
+        ])
+    );
+    if (!rawPhases.length && Array.isArray(raw.parcelas)) {
+        rawPhases = raw.parcelas;
+    }
+
+    const phases = rawPhases
+        .map((phase) => {
+            if (typeof phase === "string") {
+                const label = phase.trim();
+                return label ? { count: pickPhaseCount(label), amountCents: 0, label } : null;
+            }
+            const count = pickPhaseCount(phase);
+            const amountCents = pickPhaseAmountCents(phase);
+            const customLabel = firstDefined(phase || {}, ["label", "descricao", "descrição", "texto", "description"]);
+            const label =
+                count > 0 && amountCents > 0
+                    ? numberFormatter.format(count) + "x de " + formatCurrencyFromCents(amountCents)
+                    : customLabel
+                      ? String(customLabel).trim()
+                      : "";
+            return label ? { count, amountCents, label } : null;
+        })
+        .filter(Boolean);
+
+    if (phases.length) {
+        return phases;
+    }
+
+    if (fallbackCount > 0 && fallbackAmountCents > 0) {
+        return [
+            {
+                count: fallbackCount,
+                amountCents: fallbackAmountCents,
+                label: numberFormatter.format(fallbackCount) + "x de " + formatCurrencyFromCents(fallbackAmountCents)
+            }
+        ];
+    }
+
+    return [];
+}
+
 function mapApiCard(raw) {
     const grupo = Number(raw.grupoNumero ?? raw.grupo ?? 0) || 0;
     const cotaRaw = firstDefined(raw, ["cotaNumero", "cota", "cota_numero"]);
@@ -219,9 +348,10 @@ function mapApiCard(raw) {
     const admin = String(raw.administradora || "—").trim() || "—";
     const credit = pickCents(raw, "valor");
     const entry = pickCents(raw, "entrada");
-    const installment = pickCents(raw, "valorParcela");
+    const baseInstallment = pickCents(raw, "valorParcela");
     const term = Math.round(Number(raw.prazo) || 0);
-    const parcelas = Math.round(Number(raw.parcelas) || 0);
+    const parcelasValue = firstDefined(raw, ["parcelas", "quantidadeParcelas", "qtdParcelas"]);
+    const parcelas = Array.isArray(parcelasValue) ? 0 : Math.round(Number(parcelasValue) || 0);
     let balance = 0;
     if (raw.saldoCentavos != null && raw.saldoCentavos !== "") {
         const n = Math.round(Number(raw.saldoCentavos));
@@ -247,7 +377,9 @@ function mapApiCard(raw) {
         whatsappUrl = null;
     }
 
-    const taxaNum = parsePercentLoose(firstDefined(raw, ["taxa", "taxaAdmin", "taxaAdministracao", "taxaAdministrativa", "taxa_admin"]));
+    const taxaNum = parsePercentLoose(
+        firstDefined(raw, ["taxa", "taxaAdmin", "taxaAdministracao", "taxaAdministrativa", "taxa_admin", "taxa_administrativa"])
+    );
     const taxaPt = taxaNum != null ? formatPercentBrFromNumber(taxaNum, 2) : "—";
 
     const reducaoNum = parsePercentLoose(firstDefined(raw, ["reducao", "reducaoLance", "lancePercentual", "reducao_percent"]));
@@ -278,12 +410,10 @@ function mapApiCard(raw) {
     }
 
     const countLine = parcelas > 0 ? parcelas : term;
-    let subParcelasText = "—";
-    if (countLine > 0 && installment > 0) {
-        subParcelasText = numberFormatter.format(countLine) + "x de " + formatCurrencyFromCents(installment) + "/mês";
-    } else if (countLine > 0 && installment === 0) {
-        subParcelasText = numberFormatter.format(countLine) + "x de —/mês";
-    }
+    const installmentPhases = normalizeInstallmentPhases(raw, countLine, baseInstallment);
+    const installment = installmentPhases.find((phase) => phase.amountCents > 0)?.amountCents || baseInstallment;
+    const installmentPhasesText = installmentPhases.length ? installmentPhases.map((phase) => phase.label).join(" + ") : "—";
+    const subParcelasText = installmentPhasesText !== "—" ? installmentPhasesText + "/mês" : "—";
 
     const tipoLabel = formatProductLabel(product);
 
@@ -303,6 +433,8 @@ function mapApiCard(raw) {
         entry,
         balance,
         installment,
+        installmentPhases,
+        installmentPhasesText,
         term,
         entryPercent,
         entradaPercentPt: formatPercentBrFromNumber(entryPercent, 2),
@@ -431,7 +563,7 @@ function getExportRows() {
         credito: formatCurrencyFromCents(row.credit),
         entrada: formatCurrencyFromCents(row.entry),
         prazo: numberFormatter.format(row.term),
-        parcela: formatCurrencyFromCents(row.installment)
+        parcelas: row.installmentPhasesText || "—"
     }));
 }
 
@@ -453,7 +585,7 @@ function buildExportTableMarkup(rows) {
         "Valor do crédito",
         "Entrada",
         "Prazo",
-        "Valor da parcela"
+        "Parcelas / fases"
     ];
     const bodyRows = rows
         .map(
@@ -466,7 +598,7 @@ function buildExportTableMarkup(rows) {
             <td>${escapeHtml(row.credito)}</td>
             <td>${escapeHtml(row.entrada)}</td>
             <td>${escapeHtml(row.prazo)}</td>
-            <td>${escapeHtml(row.parcela)}</td>
+            <td>${escapeHtml(row.parcelas)}</td>
         </tr>
     `
         )
@@ -567,7 +699,7 @@ function buildWhatsAppFallbackText(rows) {
             "Crédito " + formatCurrencyFromCents(row.credit),
             "Entrada " + formatCurrencyFromCents(row.entry),
             "Prazo " + numberFormatter.format(row.term) + " meses",
-            "Parcela " + formatCurrencyFromCents(row.installment)
+            "Parcelas/fases " + (row.installmentPhasesText || "—")
         ].join(" | ");
     }).join("\n");
 
@@ -651,6 +783,23 @@ function setDetailText(id, text) {
     if (el) {
         el.textContent = text;
     }
+}
+
+function renderInstallmentPhases(row) {
+    const phases = Array.isArray(row.installmentPhases) && row.installmentPhases.length ? row.installmentPhases : [];
+    if (!phases.length) {
+        return `<span class="im-phase-empty">—</span>`;
+    }
+    return `
+        <span class="im-phase-stack" aria-label="${escapeHtml(row.installmentPhasesText || "Parcelas não informadas")}">
+            ${phases
+                .map((phase, index) => {
+                    const tone = index === 0 ? "is-first" : "is-next";
+                    return `<span class="im-phase-chip ${tone}">${escapeHtml(phase.label)}</span>`;
+                })
+                .join("")}
+        </span>
+    `;
 }
 
 function fillDetailModal(row) {
@@ -840,7 +989,7 @@ function renderTable(rows) {
                 <td class="im-money-cell im-number">${formatCurrencyFromCents(row.credit)}</td>
                 <td class="im-money-cell im-number">${formatCurrencyFromCents(row.entry)}</td>
                 <td class="im-term-cell im-number">${numberFormatter.format(row.term)}</td>
-                <td class="im-money-cell im-number">${formatCurrencyFromCents(row.installment)}</td>
+                <td class="im-installment-cell im-number">${renderInstallmentPhases(row)}</td>
                 <td class="im-detail-cell">
                     <button type="button" class="im-eye-btn" data-im-open-detail="${escapeHtml(row.id)}" aria-label="Ver detalhes da carta ${escapeHtml(row.numero)}">
                         <i class="far fa-eye" aria-hidden="true"></i>
@@ -892,8 +1041,8 @@ function renderCards(rows) {
                         <dd class="im-number">${numberFormatter.format(row.term)} meses</dd>
                     </div>
                     <div>
-                        <dt>Parcela</dt>
-                        <dd class="im-number">${formatCurrencyFromCents(row.installment)}</dd>
+                        <dt>Parcelas</dt>
+                        <dd class="im-number im-card-phases">${renderInstallmentPhases(row)}</dd>
                     </div>
                 </dl>
                 <div class="im-card-actions">
