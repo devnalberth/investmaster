@@ -3,7 +3,14 @@
  */
 
 const API_CARTAS = "/api/cartas";
-const DEFAULT_WHATSAPP_E164 = "5511954633703";
+const DEFAULT_WHATSAPP_E164 =
+    typeof window !== "undefined" && window.ImWhatsApp && window.ImWhatsApp.phone
+        ? window.ImWhatsApp.phone
+        : "5511954633703";
+
+function buildWaMeUrl(text) {
+    return "https://wa.me/" + DEFAULT_WHATSAPP_E164 + "?text=" + encodeURIComponent(text);
+}
 
 let contempladasData = [];
 
@@ -752,7 +759,7 @@ function buildWhatsAppFallbackText(rows) {
 }
 
 function buildWhatsAppFallbackLink(rows) {
-    return "https://wa.me/" + DEFAULT_WHATSAPP_E164 + "?text=" + encodeURIComponent(buildWhatsAppFallbackText(rows));
+    return buildWaMeUrl(buildWhatsAppFallbackText(rows));
 }
 
 function negociarHref(row) {
@@ -961,7 +968,10 @@ function updateSelectionPanel() {
     if (!selectedRows.length) {
         elements.selectionPanel.hidden = true;
         elements.selectionText.textContent = "Nenhuma cota selecionada.";
-        elements.selectionLink.href = "https://wa.me/" + DEFAULT_WHATSAPP_E164;
+        elements.selectionLink.href =
+            typeof window !== "undefined" && window.ImWhatsApp
+                ? window.ImWhatsApp.getUrl("geral")
+                : buildWaMeUrl("Olá! Vim pelo site da Invest Master e gostaria de mais informações.");
         return;
     }
 

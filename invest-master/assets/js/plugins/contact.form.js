@@ -11,6 +11,10 @@
     // Get the form.
     var form = $('#contact-form');
 
+    if (!form.length || form.is('[data-im-whatsapp-form]')) {
+        return;
+    }
+
     // Get the messages div.
     var formMessages = $('#form-messages');
 
