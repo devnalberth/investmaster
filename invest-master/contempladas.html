@@ -385,8 +385,9 @@
                             <div class="right-area">
                                 <div class="inpur-area-main">
                                     <input type="email" name="newsletter_email" autocomplete="email" inputmode="email" spellcheck="false" aria-label="Seu e-mail para receber novidades" placeholder="Digite seu e-mail…">
-                                    <button type="button" class="rts-btn btn-primary">Inscrever-se</button>
+                                    <button type="button" class="rts-btn btn-primary" data-im-newsletter-email>Inscrever-se</button>
                                 </div>
+                                <p class="im-form-feedback" hidden></p>
                             </div>
                         </div>
                     </div>
@@ -543,7 +544,7 @@
                     <li><a href="index.html" class="main">Página Inicial</a></li>
                     <li><a href="about.html" class="main">Quem Somos</a></li>
                     <li><a href="contempladas.html" class="main">Contempladas</a></li>
-                    <li><a href="partners.html" class="main">Seja Um Parceiro</a></li>
+                    <li><a href="#" class="main" data-im-whatsapp="parceiro">Seja Um Parceiro</a></li>
                     <li><a href="contact-2.html" class="main">Contato</a></li>
                 </ul>
             </nav>
@@ -638,10 +639,6 @@
                         <span id="im-detail-prazo" class="im-detail-kv__value im-number"></span>
                     </div>
                     <div class="im-detail-kv">
-                        <span class="im-detail-kv__label">Redução / lance</span>
-                        <span id="im-detail-reducao" class="im-detail-kv__value im-number"></span>
-                    </div>
-                    <div class="im-detail-kv">
                         <span class="im-detail-kv__label">Contemplado em</span>
                         <span id="im-detail-contemplado" class="im-detail-kv__value im-number"></span>
                     </div>
@@ -675,6 +672,7 @@
     <script defer src="assets/js/plugins/swiper.js"></script>
     <script defer src="assets/js/plugins/contact.form.js"></script>
     <script defer src="assets/js/whatsapp.js"></script>
+    <script defer src="assets/js/email.js"></script>
     <script defer src="assets/js/pages/contempladas.js"></script>
     <script defer src="assets/js/main.js"></script>
 </body>

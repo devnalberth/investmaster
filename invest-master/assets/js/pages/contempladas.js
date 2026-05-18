@@ -429,13 +429,9 @@ function mapApiCard(raw) {
         whatsappUrl = null;
     }
 
-    const taxaNum = parsePercentLoose(
-        firstDefined(raw, ["taxa", "taxaAdmin", "taxaAdministracao", "taxaAdministrativa", "taxa_admin", "taxa_administrativa"])
-    );
-    const taxaPt = taxaNum != null ? formatPercentBrFromNumber(taxaNum, 2) : "—";
-
-    const reducaoNum = parsePercentLoose(firstDefined(raw, ["reducao", "reducaoLance", "lancePercentual", "reducao_percent"]));
-    const reducaoPt = reducaoNum != null ? formatPercentBrFromNumber(reducaoNum, 2) : "—";
+    const taxaRawValue = firstDefined(raw, ["taxa", "taxaAdmin", "taxaAdministracao", "taxaAdministrativa", "taxa_admin", "taxa_administrativa"]);
+    const taxaReaisCents = parseReaisToCents(taxaRawValue);
+    const taxaPt = taxaReaisCents > 0 ? formatCurrencyFromCents(taxaReaisCents) : "—";
 
     const dataContemplacaoRaw = firstDefined(raw, ["dataContemplacao", "data_contemplacao", "contempladoEm", "contemplado_em"]);
     const dataContemplacaoPt = formatDateBr(dataContemplacaoRaw);
@@ -491,7 +487,6 @@ function mapApiCard(raw) {
         entryPercent,
         entradaPercentPt: formatPercentBrFromNumber(entryPercent, 2),
         taxaPt: taxaPt,
-        reducaoPt: reducaoPt,
         dataContemplacaoPt: dataContemplacaoPt,
         subParcelasText: subParcelasText,
         vendidoParaName: vendidoParaName,
@@ -871,7 +866,6 @@ function fillDetailModal(row) {
     setDetailText("im-detail-pct-entrada", row.entradaPercentPt || "—");
     setDetailText("im-detail-saldo", formatCurrencyFromCents(row.balance));
     setDetailText("im-detail-prazo", row.term > 0 ? numberFormatter.format(row.term) + " meses" : "—");
-    setDetailText("im-detail-reducao", row.reducaoPt || "—");
     setDetailText("im-detail-contemplado", row.dataContemplacaoPt || "—");
 
     const foot = elements.detailVendida;
