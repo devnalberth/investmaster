@@ -20812,28 +20812,29 @@ body.with-sticky-item {
   position: relative;
 }
 .company-history-main-wrapper .single-company-history .left .title::after {
+  display: none;
+}
+.company-history-main-wrapper .single-company-history .right {
+  position: relative;
+}
+.company-history-main-wrapper .single-company-history .right::before {
   content: "";
-  left: calc(100% + 8px);
-  top: 15px;
   position: absolute;
-  width: 140px;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 12px;
+  width: 120px;
   height: 4px;
   background: linear-gradient(90deg, #F6F6F6 0%, #20282D 100%);
   border-radius: 6px;
   transition: all 0.3s;
 }
-@media only screen and (min-width: 1200px) and (max-width: 1599px) {
-  .company-history-main-wrapper .single-company-history .left .title::after {
-    right: 20px;
-  }
+.company-history-main-wrapper .single-company-history:hover .right::before {
+  background: linear-gradient(90deg, #63686C 0%, #FFFFFF 100%);
 }
 @media only screen and (max-width: 1199px) {
-  .company-history-main-wrapper .single-company-history .left .title::after {
-    display: none;
-  }
-}
-@media only screen and (max-width: 767px) {
-  .company-history-main-wrapper .single-company-history .left .title::after {
+  .company-history-main-wrapper .single-company-history .right::before {
     display: none;
   }
 }
