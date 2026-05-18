@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/contempladas.html",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/contempladas",
+      "destination": "/index.html",
+      "permanent": false
+    }
+  ]
+}

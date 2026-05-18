@@ -832,3 +832,12 @@ body .rts-trusted-client.rts-section-gap {
     text-align: center;
   }
 }
+
+/* Depoimentos — só remove foto/logo; tipografia e padding vêm de style.css */
+.rts-client-reviews-h2.im-testimonial-card .review-header .discription {
+  margin-left: 0;
+}
+
+.rts-client-reviews-h2.im-testimonial-card .review-body .body-end {
+  justify-content: flex-end;
+}

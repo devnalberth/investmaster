@@ -34,6 +34,7 @@
                                 <li class="main-nav project-a-after"><a href="index.html">Página Inicial</a></li>
                                 <li class="main-nav project-a-after"><a href="about.html">Quem Somos</a></li>
                                 <li class="main-nav project-a-after"><a href="contempladas.html" aria-current="page">Contempladas</a></li>
+                                <li class="main-nav project-a-after"><a href="#faq">FAQ</a></li>
                                 <li class="main-nav project-a-after"><a href="contact-2.html">Contato</a></li>
                             </ul>
                         </div>
@@ -60,7 +61,7 @@
                         </script>
 
                         <div class="action-area">
-                            <a href="partners.html" class="rts-btn btn-primary btn-white">SEJA UM PARCEIRO</a>
+                            <a href="#" class="rts-btn btn-primary btn-white" data-im-whatsapp="parceiro">SEJA UM PARCEIRO</a>
                             <button id="menu-btn" class="menu menu-btn ml--20 ml_sm--5" aria-label="Abrir menu">
                                 <img class="menu-light" src="assets/images/icons/01.svg" alt="Ícone do menu" width="28" height="28">
                             </button>
@@ -224,7 +225,7 @@
 
                         <div class="im-table-shell" tabindex="0" aria-label="Tabela de cartas contempladas com rolagem horizontal">
                             <table class="im-desktop-table">
-                                <caption class="im-sr-only">Lista de cartas contempladas com seleção, administradora, produto, status, valores, prazo, parcela, ver detalhes e negociar.</caption>
+                                <caption class="im-sr-only">Lista de cartas contempladas com seleção, administradora, produto, status, valores, prazo, parcelas por fase, ver detalhes e negociar.</caption>
                                 <thead>
                                     <tr>
                                         <th scope="col" class="im-select-cell">Juntar cotas</th>
@@ -234,7 +235,7 @@
                                         <th scope="col">Valor do crédito</th>
                                         <th scope="col">Entrada</th>
                                         <th scope="col">Prazo</th>
-                                        <th scope="col">Valor da parcela</th>
+                                        <th scope="col">Parcelas / fases</th>
                                         <th scope="col" class="im-detail-col"><span class="im-sr-only">Detalhes</span></th>
                                         <th scope="col">Ação</th>
                                     </tr>
@@ -384,8 +385,9 @@
                             <div class="right-area">
                                 <div class="inpur-area-main">
                                     <input type="email" name="newsletter_email" autocomplete="email" inputmode="email" spellcheck="false" aria-label="Seu e-mail para receber novidades" placeholder="Digite seu e-mail…">
-                                    <button type="button" class="rts-btn btn-primary">Inscrever-se</button>
+                                    <button type="button" class="rts-btn btn-primary" data-im-newsletter-email>Inscrever-se</button>
                                 </div>
+                                <p class="im-form-feedback" hidden></p>
                             </div>
                         </div>
                     </div>
@@ -407,7 +409,7 @@
                         <p class="disc">
                             Estrutura técnica, operação forte e suporte estratégico para você vender mais com previsibilidade.
                         </p>
-                        <a class="rts-btn btn-primary" href="partners.html">Seja um Parceiro</a>
+                        <a class="rts-btn btn-primary" href="#" data-im-whatsapp="parceiro">Seja um Parceiro</a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 mt_sm--50">
@@ -542,7 +544,7 @@
                     <li><a href="index.html" class="main">Página Inicial</a></li>
                     <li><a href="about.html" class="main">Quem Somos</a></li>
                     <li><a href="contempladas.html" class="main">Contempladas</a></li>
-                    <li><a href="partners.html" class="main">Seja Um Parceiro</a></li>
+                    <li><a href="#" class="main" data-im-whatsapp="parceiro">Seja Um Parceiro</a></li>
                     <li><a href="contact-2.html" class="main">Contato</a></li>
                 </ul>
             </nav>
@@ -617,7 +619,7 @@
                         <span id="im-detail-admin" class="im-detail-kv__value" translate="no"></span>
                     </div>
                     <div class="im-detail-kv">
-                        <span class="im-detail-kv__label">Taxa admin</span>
+                        <span class="im-detail-kv__label">Taxa administrativa</span>
                         <span id="im-detail-taxa" class="im-detail-kv__value im-number"></span>
                     </div>
                     <div class="im-detail-kv">
@@ -635,10 +637,6 @@
                     <div class="im-detail-kv">
                         <span class="im-detail-kv__label">Prazo</span>
                         <span id="im-detail-prazo" class="im-detail-kv__value im-number"></span>
-                    </div>
-                    <div class="im-detail-kv">
-                        <span class="im-detail-kv__label">Redução / lance</span>
-                        <span id="im-detail-reducao" class="im-detail-kv__value im-number"></span>
                     </div>
                     <div class="im-detail-kv">
                         <span class="im-detail-kv__label">Contemplado em</span>
@@ -661,8 +659,6 @@
         </svg>
     </div>
 
-    <script defer src="assets/js/pages/contempladas.js"></script>
-
     <script defer src="assets/js/plugins/jquery.js"></script>
     <script defer src="assets/js/plugins/odometer.js"></script>
     <script defer src="assets/js/plugins/jquery-appear.js"></script>
@@ -675,6 +671,9 @@
     <script defer src="assets/js/vendor/bootstrap.min.js"></script>
     <script defer src="assets/js/plugins/swiper.js"></script>
     <script defer src="assets/js/plugins/contact.form.js"></script>
+    <script defer src="assets/js/whatsapp.js"></script>
+    <script defer src="assets/js/email.js"></script>
+    <script defer src="assets/js/pages/contempladas.js"></script>
     <script defer src="assets/js/main.js"></script>
 </body>
 

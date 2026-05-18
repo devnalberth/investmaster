@@ -19635,7 +19635,14 @@ body.with-sticky-item {
   background-image: url(../images/testimonials/icon/01.png);
 }
 .rts-client-reviews-h2 .review-header .discription {
-  margin-left: 30px;
+  margin-left: 0;
+}
+.im-testimonial-role {
+  display: block;
+  font-size: 14px;
+  color: var(--color-primary);
+  font-weight: 500;
+  margin-top: 4px;
 }
 .rts-client-reviews-h2 .review-header .discription a:hover .title {
   color: var(--color-primary);
@@ -31354,3 +31361,22 @@ header.header-transparent.in-full-screen .action-area .menu-btn {
   }
 }
 /*# sourceMappingURL=../maps/style.css.map */
+
+/* ── Feedback de formulários ── */
+.im-form-feedback {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.im-form-feedback--success {
+  background: #e6f9f0;
+  color: #1a7a4a;
+  border: 1px solid #b2e8ce;
+}
+.im-form-feedback--error {
+  background: #fff0f0;
+  color: #c0392b;
+  border: 1px solid #f5c6c6;
+}
